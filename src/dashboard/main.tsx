@@ -5,6 +5,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router"
 import { routeTree } from "./routeTree.gen.ts"
 
 // Create a new router instance
+// @ts-ignore
 const router = createRouter({ routeTree })
 
 // Register the router instance for type safety
