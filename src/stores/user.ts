@@ -13,3 +13,8 @@ export const github_login = async () => {
     provider: "github",
   });
 };
+
+export const is_authenticated = () => {
+  console.log($user.get())
+  return !!$user.get()
+}
