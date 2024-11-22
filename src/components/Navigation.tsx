@@ -1,13 +1,15 @@
-import { Github } from "lucide-react";
+import { Github, Sparkles } from "lucide-react";
 import pb from "../pocketbase";
+import { useStore } from "@nanostores/react";
+import { $user } from "../stores/user";
 
 const Navigation = () => {
-  const user = pb.authStore.model;
+  const user = useStore($user)
   console.log({ user });
   return (
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <a class="btn btn-ghost text-xl">daisyUI</a>
+        <a class="font-black flex items-center gap-2 text-xl"><Sparkles />spellbook</a>
       </div>
       <div class="flex-none">
         {user ? (
