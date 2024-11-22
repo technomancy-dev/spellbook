@@ -1,5 +1,18 @@
 # Astro Starter Kit: Basics
 
+
+```sh
+docker build -t spellbook-pocketbase -f pocketbase.Dockerfile .
+```
+
+```sh
+docker run -d \
+  -p 8080:8080 \
+  -v "$(pwd)/pb_data:/pb/pb_data" \
+  spellbook-pocketbase
+```
+
+
 ```sh
 npm create astro@latest -- --template basics
 ```
