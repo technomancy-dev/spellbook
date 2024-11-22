@@ -7,6 +7,7 @@ export default {
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
+      "lofi",
       {
         skeletor: {
           primary: "#84FBA2",
