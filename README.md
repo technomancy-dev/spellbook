@@ -1,5 +1,10 @@
 # Astro Starter Kit: Basics
 
+Github App setup.
+
+Homepage URL: `http://localhost:4321/`
+Callback URL: `http://localhost:8080/api/oauth2-redirect`
+
 
 ```sh
 docker build -t spellbook-pocketbase -f pocketbase.Dockerfile .
@@ -11,7 +16,6 @@ docker run -d \
   -v "$(pwd)/pb_data:/pb/pb_data" \
   spellbook-pocketbase
 ```
-
 
 ```sh
 npm create astro@latest -- --template basics

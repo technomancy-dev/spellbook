@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import { Github } from "lucide-react";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -17,40 +17,27 @@ import Card from "../components/Card.astro";
           </p>
         </div>
         <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form class="card-body">
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email"
-                class="input input-bordered"
-                required
-              />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                class="input input-bordered"
-                required
-              />
-              <label class="label">
-                <a href="#" class="label-text-alt link link-hover"
-                  >Forgot password?</a
-                >
-              </label>
-            </div>
-            <div class="form-control mt-6">
-              <button class="btn btn-primary">Login</button>
-            </div>
-          </form>
+          <div class="form-control">
+            <button id="gh-login" class="btn btn-primary">
+              <Github />
+              Login with Github
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  import pb from "../pocketbase";
+
+  const gh_login = document.querySelector("#gh-login");
+
+  gh_login.addEventListener("click", async () => {
+    pb.authStore.clear();
+    await pb.collection("users").authWithOAuth2({
+      provider: "github",
+    });
+  });
+</script>
