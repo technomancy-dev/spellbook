@@ -4,7 +4,7 @@ const Navigation = ({ children }) => {
   return (
     <div class="navbar h-12 bg-base-100">
       <div class="flex-1">
-        <a class="font-black flex items-center gap-2 text-xl">
+        <a href="/" class="font-black flex items-center gap-2 text-xl">
           <Sparkles />
           spellbook
         </a>

@@ -1,4 +1,5 @@
 ---
+import CallToAciton from "../components/CallToAction";
 import Layout from "../layouts/Layout.astro";
 import { Github } from "lucide-react";
 ---
@@ -16,28 +17,8 @@ import { Github } from "lucide-react";
             SPA dashboard.
           </p>
         </div>
-        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div class="form-control">
-            <button id="gh-login" class="btn btn-primary">
-              <Github />
-              Login with Github
-            </button>
-          </div>
-        </div>
+        <CallToAciton client:only />
       </div>
     </div>
   </main>
 </Layout>
-
-<script>
-  import pb from "../pocketbase";
-
-  const gh_login = document.querySelector("#gh-login");
-
-  gh_login.addEventListener("click", async () => {
-    pb.authStore.clear();
-    await pb.collection("users").authWithOAuth2({
-      provider: "github",
-    });
-  });
-</script>

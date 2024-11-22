@@ -26,14 +26,12 @@ const NavigationActions = () => {
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a class="justify-between">
-            Profile
+          <a href="/dashboard" class="justify-between">
+            Dashboard
             <span class="badge">New</span>
           </a>
         </li>
-        <li>
-          <a>Settings</a>
-        </li>
+
         <li>
           <button onClick={() => pb.authStore.clear()}>Logout</button>
         </li>
