@@ -24,16 +24,20 @@ const { title } = Astro.props;
     <slot />
   </body>
   <Footer />
+
+  <script>
+    import PocketBase from "pocketbase";
+
+    const pb = new PocketBase("http://localhost:8080");
+
+    // const authData = await pb.collection('users').authWithPassword('test', 'testtest');
+    const authData = await pb.collection("users").authWithOAuth2({
+      provider: "github",
+    });
+    console.log(pb.authStore.isValid);
+    console.log(pb.authStore.token);
+    console.log(pb.authStore.model);
+    pb.authStore.clear();
+  </script>
+
 </html>
-
-<script>
-import PocketBase from 'pocketbase';
-
-const pb = new PocketBase('http://localhost:8080');
-
-// const authData = await pb.collection('users').authWithPassword('test', 'testtest');
-
-console.log(pb.authStore.isValid);
-console.log(pb.authStore.token);
-console.log(pb.authStore.model);
-</script>
