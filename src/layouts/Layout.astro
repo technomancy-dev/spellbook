@@ -30,12 +30,9 @@ const { title, showFooter = true } = Astro.props;
   {showFooter && <Footer />}
 
   <script>
-    import pb from "../pocketbase";
-    import { set_current_user } from "../stores/user";
+    import { subscribe_user_to_auth_store } from "../stores/user";
 
-    pb.authStore.onChange((token, model) => {
-      set_current_user(model);
-    }, true);
+    subscribe_user_to_auth_store();
   </script>
 
   <style is:global>

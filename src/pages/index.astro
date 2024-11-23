@@ -1,7 +1,6 @@
 ---
 import CallToAciton from "../components/CallToAction";
 import Layout from "../layouts/Layout.astro";
-import { Github } from "lucide-react";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -17,7 +16,7 @@ import { Github } from "lucide-react";
             SPA dashboard.
           </p>
         </div>
-        <CallToAciton client:only />
+        <CallToAciton client:only="react" />
       </div>
     </div>
   </main>

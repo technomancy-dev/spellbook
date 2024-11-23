@@ -1,22 +1,17 @@
 import { Github } from "lucide-react";
 import { useStore } from "@nanostores/react";
-import { $user } from "../stores/user";
-import pb from "../pocketbase"
+import { $user, github_login, logout } from "../stores/user";
+import pb from "../pocketbase";
 
 const NavigationActions = () => {
   const user = useStore($user);
-  const github_login = async () => {
-    await pb.collection("users").authWithOAuth2({
-      provider: "github",
-    });
-  };
   return user ? (
     <div class="dropdown dropdown-end">
       <div tabIndex={0} role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            src={pb.files.getUrl(user, user.avatar)}
           />
         </div>
       </div>
@@ -33,7 +28,7 @@ const NavigationActions = () => {
         </li>
 
         <li>
-          <button onClick={() => pb.authStore.clear()}>Logout</button>
+          <button onClick={logout}>Logout</button>
         </li>
       </ul>
     </div>
