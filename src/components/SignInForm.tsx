@@ -1,16 +1,16 @@
 import { Github } from "lucide-react";
 import { github_login, password_sign_in } from "../stores/user";
 import { useForm } from "@tanstack/react-form";
+import toast from "react-hot-toast";
 
 const SignInForm = () => {
   const form = useForm({
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
     onSubmit: async ({ value }) => {
-
-      password_sign_in(value.email, value.password)
+      toast.success("Logged in");
       console.log(value);
     },
   });

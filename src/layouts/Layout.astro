@@ -2,6 +2,7 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer.astro";
 import NavigationActions from "../components/NavigationActions";
+import { Toaster } from "react-hot-toast";
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const { title, showFooter = true } = Astro.props;
     <NavigationActions client:only="react" />
   </Navigation>
   <body class="grid">
+    <Toaster client:only="react" />
     <slot />
   </body>
   {showFooter && <Footer />}
