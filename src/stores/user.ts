@@ -10,8 +10,9 @@ export const set_current_user = (model: AuthModel) => {
 
 export const subscribe_user_to_auth_store = () => {
   return pb.authStore.onChange(async (token, model) => {
+    if (model === null) return set_current_user(null);
     const user = await pb.collection("users").getOne(pb.authStore.model.id);
-    set_current_user(user);
+    return set_current_user(user);
   }, true);
 };
 
@@ -20,15 +21,21 @@ export const is_authenticated = () => {
 };
 
 export const is_admin = async () => {
+  if (!pb.authStore.isValid) {
+    return false;
+  }
   const user = await pb.collection("users").getOne(pb.authStore.model.id);
-  console.log({ user });
   return user.role === "manager";
 };
 
 export const github_login = async () => {
-  await pb.collection("users").authWithOAuth2({
+  return await pb.collection("users").authWithOAuth2({
     provider: "github",
   });
+};
+
+export const password_sign_in = (username, password) => {
+  return pb.collection("users").authWithPassword(username, password);
 };
 
 export const logout = () => {
