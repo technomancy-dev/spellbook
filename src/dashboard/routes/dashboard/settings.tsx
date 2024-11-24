@@ -10,6 +10,8 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { queryClient } from "../../../stores/query";
 
 function FieldInfo({ field }) {
   return (
@@ -39,7 +41,8 @@ const user_schema = z.object({
 });
 
 function RouteComponent() {
-  const [linked_github, set_linked_github] = useState(false);
+  // const [linked_github_loading, set_linked_github_loading] = useState(true);
+  // const [linked_github, set_linked_github] = useState(false);
   const user = useStore($user);
 
   const form = useForm({
@@ -54,11 +57,13 @@ function RouteComponent() {
     onSubmit: ({ value }) => {
       console.log(value);
       const data = {
-        username: value.username
-      }
-      const promise = pb.collection("users").update(user.id, data)
+        username: value.username,
+      };
+      const promise = pb.collection("users").update(user.id, data);
       if (value.email !== user.email) {
-        const email_promise = pb.collection('users').requestEmailChange(user.id, value.email);
+        const email_promise = pb
+          .collection("users")
+          .requestEmailChange(user.id, value.email);
         toast.promise(email_promise, {
           loading: "Loading",
           success: "Successfully changed email",
@@ -74,22 +79,27 @@ function RouteComponent() {
     },
   });
 
-  useEffect(() => {
-    pb.collection("users")
-      .listExternalAuths(pb.authStore.model.id)
-      .then((result) => {
-        const github = result.find((account) => account.provider === "github");
-        if (github) {
-          set_linked_github(true);
-        }
-      });
-  }, []);
+  const { data: linked_github, isLoading } = useQuery({
+    queryKey: ["linked_github"],
+    queryFn: () =>
+      pb
+        .collection("users")
+        .listExternalAuths(pb.authStore.model.id)
+        .then((result) => {
+          const github = result.find(
+            (account) => account.provider === "github",
+          );
+          return !!github;
+        }),
+  });
 
   const unlink_github = () => {
     pb.collection("users")
       .unlinkExternalAuth(pb.authStore.model.id, "github")
-      .then(() => set_linked_github(false));
+      .then(() => queryClient.refetchQueries({ queryKey: ["linked_github"] }));
   };
+
+  console.log({isLoading})
 
   return (
     <DashboardLayout>
@@ -158,20 +168,31 @@ function RouteComponent() {
         </form>
         <div>
           <p class="font-black">Linked accounts</p>
-          {linked_github ? (
-            <button onClick={unlink_github} class="btn w-full btn-error">
+          {isLoading && (
+            <button class="btn w-full skeleton" disabled={true}>
               <Github />
-              Unlink Github
-            </button>
-          ) : (
-            <button
-              onClick={() => github_login().then(() => set_linked_github(true))}
-              class="btn w-full btn-primary"
-            >
-              <Github />
-              Link Github
+              Github
             </button>
           )}
+          {!isLoading &&
+            (linked_github ? (
+              <button onClick={unlink_github} class="btn w-full btn-error">
+                <Github />
+                Unlink Github
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  github_login().then(() =>
+                    queryClient.refetchQueries({ queryKey: ["linked_github"] }),
+                  )
+                }
+                class="btn w-full btn-primary"
+              >
+                <Github />
+                Link Github
+              </button>
+            ))}
         </div>
       </div>
     </DashboardLayout>
