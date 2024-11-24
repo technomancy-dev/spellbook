@@ -1,10 +1,26 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { github_login, is_authenticated } from "../../../stores/user";
+import { $user, github_login, is_authenticated } from "../../../stores/user";
 import { Github } from "lucide-react";
 import DashboardLayout from "../../../components/DashboardLayout";
 import pb from "../../../pocketbase";
+import { useStore } from "@nanostores/react";
+import { useForm } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+import toast from "react-hot-toast";
+
+function FieldInfo({ field }) {
+  return (
+    <>
+      {field.state.meta.isTouched && field.state.meta.errors.length ? (
+        <em class="text-xs">{field.state.meta.errors.join(",")}</em>
+      ) : null}
+      {field.state.meta.isValidating ? "Validating..." : null}
+    </>
+  );
+}
 
 export const Route = createFileRoute("/dashboard/settings")({
   component: RouteComponent,
@@ -17,8 +33,46 @@ export const Route = createFileRoute("/dashboard/settings")({
   },
 });
 
+const user_schema = z.object({
+  username: z.string().min(3),
+  email: z.string().email(),
+});
+
 function RouteComponent() {
   const [linked_github, set_linked_github] = useState(false);
+  const user = useStore($user);
+
+  const form = useForm({
+    defaultValues: {
+      username: user.username,
+      email: user.email,
+    },
+    validatorAdapter: zodValidator(),
+    validators: {
+      onChange: user_schema,
+    },
+    onSubmit: ({ value }) => {
+      console.log(value);
+      const data = {
+        username: value.username
+      }
+      const promise = pb.collection("users").update(user.id, data)
+      if (value.email !== user.email) {
+        const email_promise = pb.collection('users').requestEmailChange(user.id, value.email);
+        toast.promise(email_promise, {
+          loading: "Loading",
+          success: "Successfully changed email",
+          error: (err) => `${err.toString()}`,
+        });
+      }
+
+      toast.promise(promise, {
+        loading: "Loading",
+        success: "Successfully updated settings",
+        error: (err) => `${err.toString()}`,
+      });
+    },
+  });
 
   useEffect(() => {
     pb.collection("users")
@@ -39,38 +93,86 @@ function RouteComponent() {
 
   return (
     <DashboardLayout>
-      <div class="max-w-prose gap-2 flex flex-col p-6 mx-auto">
-        <label class="input input-bordered flex items-center gap-2">
-          Name
-          <input type="text" class="grow" placeholder="Daisy" />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          Email
-          <input type="text" class="grow" placeholder="daisy@site.com" />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <input type="text" class="grow" placeholder="Search" />
-          <kbd class="kbd kbd-sm">⌘</kbd>
-          <kbd class="kbd kbd-sm">K</kbd>
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <input type="text" class="grow" placeholder="Search" />
-          <span class="badge badge-info">Optional</span>
-        </label>
-        {linked_github ? (
-          <button onClick={unlink_github} class="btn w-full btn-error">
-            <Github />
-            Unlink Github
-          </button>
-        ) : (
-          <button
-            onClick={() => github_login().then(() => set_linked_github(true))}
-            class="btn w-full btn-primary"
-          >
-            <Github />
-            Link Github
-          </button>
-        )}
+      <div class="grid w-full grid-cols-2 gap-24 p-6 mx-auto">
+        <form
+          class="flex w-full flex-col gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <p class="font-black">User Settings</p>
+          <form.Field
+            name="username"
+            children={(field) => (
+              <label class="input input-bordered flex items-center gap-2">
+                Username
+                <input
+                  type="text"
+                  class="grow"
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="Daisy"
+                />
+                <FieldInfo field={field} />
+              </label>
+            )}
+          />
+          <form.Field
+            name="email"
+            children={(field) => (
+              <label class="input input-bordered flex items-center gap-2">
+                Email
+                <input
+                  type="text"
+                  class="grow"
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="Daisy"
+                />
+                <FieldInfo field={field} />
+              </label>
+            )}
+          />
+          <form.Subscribe
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isTouched,
+            ]}
+            children={([canSubmit, isSubmitting, isTouched]) => (
+              <button
+                disabled={!canSubmit || !isTouched}
+                type="submit"
+                class="btn btn-primary grow"
+              >
+                {isSubmitting ? "..." : "Submit"}
+              </button>
+            )}
+          />
+        </form>
+        <div>
+          <p class="font-black">Linked accounts</p>
+          {linked_github ? (
+            <button onClick={unlink_github} class="btn w-full btn-error">
+              <Github />
+              Unlink Github
+            </button>
+          ) : (
+            <button
+              onClick={() => github_login().then(() => set_linked_github(true))}
+              class="btn w-full btn-primary"
+            >
+              <Github />
+              Link Github
+            </button>
+          )}
+        </div>
       </div>
     </DashboardLayout>
   );
