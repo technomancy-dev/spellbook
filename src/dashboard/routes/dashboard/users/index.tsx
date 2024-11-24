@@ -50,18 +50,21 @@ function RouteComponent() {
                   </label>
                 </th>
                 <td>
-                  <Link to={`/dashboard/users/${user.id}`} class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle h-12 w-12">
-                        <img
-                          src={pb.files.getUrl(user, user.avatar)}
-                          alt="Avatar Tailwind CSS Component"
-                        />
+                  <Link to={`/dashboard/users/${user.id}`}>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            width={12}
+                            src={pb.files.getUrl(user, user.avatar)}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div class="font-bold">{user.username}</div>
-                      {/* <div class="text-sm opacity-50">United States</div> */}
+                      <div>
+                        <div class="font-bold">{user.username}</div>
+                        {/* <div class="text-sm opacity-50">United States</div> */}
+                      </div>
                     </div>
                   </Link>
                 </td>
@@ -77,9 +80,11 @@ function RouteComponent() {
                     </button>
                     <Link
                       to={`/dashboard/users/${user.id}`}
-                      class="btn btn-primary btn-xs"
+
                     >
+                      <div  class="btn btn-primary btn-xs">
                       Edit
+                      </div>
                     </Link>
                   </div>
                 </td>

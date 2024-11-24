@@ -6,7 +6,7 @@ import DashboardLayout from "../../../components/DashboardLayout";
 
 export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
-  beforeLoad: async () => {
+  beforeLoad: () => {
     if (!is_authenticated()) {
       throw redirect({
         to: "/dashboard/sign-in",
