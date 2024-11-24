@@ -12,23 +12,17 @@
 
 import { Route as rootRoute } from "./routes/__root"
 import { Route as DashboardIndexImport } from "./routes/dashboard/index"
-import { Route as DashboardUsersImport } from "./routes/dashboard/users"
 import { Route as DashboardSignUpImport } from "./routes/dashboard/sign-up"
 import { Route as DashboardSignInImport } from "./routes/dashboard/sign-in"
 import { Route as DashboardSettingsImport } from "./routes/dashboard/settings"
-import { Route as DashboardUsersUseridImport } from "./routes/dashboard/users.$user_id"
+import { Route as DashboardUsersIndexImport } from "./routes/dashboard/users/index"
+import { Route as DashboardUsersUseridImport } from "./routes/dashboard/users/$user_id"
 
 // Create/Update Routes
 
 const DashboardIndexRoute = DashboardIndexImport.update({
   id: "/dashboard/",
   path: "/dashboard/",
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DashboardUsersRoute = DashboardUsersImport.update({
-  id: "/dashboard/users",
-  path: "/dashboard/users",
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,10 +44,16 @@ const DashboardSettingsRoute = DashboardSettingsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardUsersIndexRoute = DashboardUsersIndexImport.update({
+  id: "/dashboard/users/",
+  path: "/dashboard/users/",
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DashboardUsersUseridRoute = DashboardUsersUseridImport.update({
-  id: "/$user_id",
-  path: "/$user_id",
-  getParentRoute: () => DashboardUsersRoute,
+  id: "/dashboard/users/$user_id",
+  path: "/dashboard/users/$user_id",
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -81,13 +81,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSignUpImport
       parentRoute: typeof rootRoute
     }
-    "/dashboard/users": {
-      id: "/dashboard/users"
-      path: "/dashboard/users"
-      fullPath: "/dashboard/users"
-      preLoaderRoute: typeof DashboardUsersImport
-      parentRoute: typeof rootRoute
-    }
     "/dashboard/": {
       id: "/dashboard/"
       path: "/dashboard"
@@ -97,44 +90,39 @@ declare module "@tanstack/react-router" {
     }
     "/dashboard/users/$user_id": {
       id: "/dashboard/users/$user_id"
-      path: "/$user_id"
+      path: "/dashboard/users/$user_id"
       fullPath: "/dashboard/users/$user_id"
       preLoaderRoute: typeof DashboardUsersUseridImport
-      parentRoute: typeof DashboardUsersImport
+      parentRoute: typeof rootRoute
+    }
+    "/dashboard/users/": {
+      id: "/dashboard/users/"
+      path: "/dashboard/users"
+      fullPath: "/dashboard/users"
+      preLoaderRoute: typeof DashboardUsersIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface DashboardUsersRouteChildren {
-  DashboardUsersUseridRoute: typeof DashboardUsersUseridRoute
-}
-
-const DashboardUsersRouteChildren: DashboardUsersRouteChildren = {
-  DashboardUsersUseridRoute: DashboardUsersUseridRoute,
-}
-
-const DashboardUsersRouteWithChildren = DashboardUsersRoute._addFileChildren(
-  DashboardUsersRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
-  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard": typeof DashboardIndexRoute
   "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
+  "/dashboard/users": typeof DashboardUsersIndexRoute
 }
 
 export interface FileRoutesByTo {
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
-  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard": typeof DashboardIndexRoute
   "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
+  "/dashboard/users": typeof DashboardUsersIndexRoute
 }
 
 export interface FileRoutesById {
@@ -142,9 +130,9 @@ export interface FileRoutesById {
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
-  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard/": typeof DashboardIndexRoute
   "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
+  "/dashboard/users/": typeof DashboardUsersIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -153,25 +141,25 @@ export interface FileRouteTypes {
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
-    | "/dashboard/users"
     | "/dashboard"
     | "/dashboard/users/$user_id"
+    | "/dashboard/users"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
-    | "/dashboard/users"
     | "/dashboard"
     | "/dashboard/users/$user_id"
+    | "/dashboard/users"
   id:
     | "__root__"
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
-    | "/dashboard/users"
     | "/dashboard/"
     | "/dashboard/users/$user_id"
+    | "/dashboard/users/"
   fileRoutesById: FileRoutesById
 }
 
@@ -179,16 +167,18 @@ export interface RootRouteChildren {
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardSignInRoute: typeof DashboardSignInRoute
   DashboardSignUpRoute: typeof DashboardSignUpRoute
-  DashboardUsersRoute: typeof DashboardUsersRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardUsersUseridRoute: typeof DashboardUsersUseridRoute
+  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardSignInRoute: DashboardSignInRoute,
   DashboardSignUpRoute: DashboardSignUpRoute,
-  DashboardUsersRoute: DashboardUsersRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardUsersUseridRoute: DashboardUsersUseridRoute,
+  DashboardUsersIndexRoute: DashboardUsersIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -204,8 +194,9 @@ export const routeTree = rootRoute
         "/dashboard/settings",
         "/dashboard/sign-in",
         "/dashboard/sign-up",
-        "/dashboard/users",
-        "/dashboard/"
+        "/dashboard/",
+        "/dashboard/users/$user_id",
+        "/dashboard/users/"
       ]
     },
     "/dashboard/settings": {
@@ -217,18 +208,14 @@ export const routeTree = rootRoute
     "/dashboard/sign-up": {
       "filePath": "dashboard/sign-up.tsx"
     },
-    "/dashboard/users": {
-      "filePath": "dashboard/users.tsx",
-      "children": [
-        "/dashboard/users/$user_id"
-      ]
-    },
     "/dashboard/": {
       "filePath": "dashboard/index.tsx"
     },
     "/dashboard/users/$user_id": {
-      "filePath": "dashboard/users.$user_id.tsx",
-      "parent": "/dashboard/users"
+      "filePath": "dashboard/users/$user_id.tsx"
+    },
+    "/dashboard/users/": {
+      "filePath": "dashboard/users/index.tsx"
     }
   }
 }

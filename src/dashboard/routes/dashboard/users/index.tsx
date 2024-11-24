@@ -1,13 +1,13 @@
 import * as React from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { is_admin, is_authenticated } from "../../../stores/user";
-import pb from "../../../pocketbase";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { is_admin, is_authenticated } from "../../../../stores/user";
+import pb from "../../../../pocketbase";
 import { useQuery } from "@tanstack/react-query";
-import { delete_user } from "../../../services/user";
+import { delete_user } from "../../../../services/user";
 import { redirect } from "@tanstack/react-router";
-import DashboardLayout from "../../../components/DashboardLayout";
+import DashboardLayout from "../../../../components/DashboardLayout";
 
-export const Route = createFileRoute("/dashboard/users")({
+export const Route = createFileRoute("/dashboard/users/")({
   component: RouteComponent,
   beforeLoad: async () => {
     if (!is_authenticated() || (await is_admin()) === false) {
@@ -23,7 +23,6 @@ function RouteComponent() {
     queryKey: ["users"],
     queryFn: () => pb.collection("users").getFullList(),
   });
-
 
   return (
     <DashboardLayout>
@@ -51,7 +50,7 @@ function RouteComponent() {
                   </label>
                 </th>
                 <td>
-                  <div class="flex items-center gap-3">
+                  <Link to={`/dashboard/users/${user.id}`} class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="mask mask-squircle h-12 w-12">
                         <img
@@ -64,17 +63,25 @@ function RouteComponent() {
                       <div class="font-bold">{user.username}</div>
                       {/* <div class="text-sm opacity-50">United States</div> */}
                     </div>
-                  </div>
+                  </Link>
                 </td>
                 <td>{new Date(user.created).toLocaleDateString()}</td>
                 <td>{user.role}</td>
                 <td>
-                  <button
-                    onClick={() => delete_user(user.id)}
-                    class="btn btn-error btn-xs"
-                  >
-                    Delete
-                  </button>
+                  <div class="flex gap-2">
+                    <button
+                      onClick={() => delete_user(user.id)}
+                      class="btn btn-error btn-xs"
+                    >
+                      Delete
+                    </button>
+                    <Link
+                      to={`/dashboard/users/${user.id}`}
+                      class="btn btn-primary btn-xs"
+                    >
+                      Edit
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}

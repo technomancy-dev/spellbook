@@ -21,8 +21,7 @@ function RouteComponent() {
   const [linked_github, set_linked_github] = useState(false);
 
   useEffect(() => {
-    const result = pb
-      .collection("users")
+    pb.collection("users")
       .listExternalAuths(pb.authStore.model.id)
       .then((result) => {
         const github = result.find((account) => account.provider === "github");
@@ -64,7 +63,10 @@ function RouteComponent() {
             Unlink Github
           </button>
         ) : (
-          <button onClick={() => github_login().then(() => set_linked_github(true))} class="btn w-full btn-primary">
+          <button
+            onClick={() => github_login().then(() => set_linked_github(true))}
+            class="btn w-full btn-primary"
+          >
             <Github />
             Link Github
           </button>

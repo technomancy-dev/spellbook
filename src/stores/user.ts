@@ -25,7 +25,10 @@ export const is_admin = async () => {
   if (!pb.authStore.isValid) {
     return false;
   }
-  const user = await pb.collection("users").getOne(pb.authStore.model.id);
+  console.log("RUNNING");
+  const user = await pb
+    .collection("users")
+    .getOne(pb.authStore.model.id, { requestKey: null });
   return user.role === "manager";
 };
 

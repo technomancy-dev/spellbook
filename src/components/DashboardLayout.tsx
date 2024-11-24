@@ -5,6 +5,7 @@ import { $user, is_admin, useIsAdmin } from "../stores/user";
 const DashboardLayout = ({ children }) => {
   const isAdmin = useIsAdmin();
 
+  console.log({isAdmin})
   return (
     <>
       <ul class="menu menu-xs gap-2 w-full bg-base-100 lg:menu-horizontal rounded-box">
@@ -50,7 +51,7 @@ const DashboardLayout = ({ children }) => {
         </li>
         {isAdmin && (
           <li>
-            <Link activeOptions={{ exact: true }} to="/dashboard/users">
+            <Link to="/dashboard/users">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
