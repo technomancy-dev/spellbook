@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import pb from "../pocketbase";
 import type { AuthModel } from "pocketbase";
+import { useEffect, useState } from "react";
 
 export const $user = atom(null);
 
@@ -28,16 +29,32 @@ export const is_admin = async () => {
   return user.role === "manager";
 };
 
-export const github_login = async () => {
-  return await pb.collection("users").authWithOAuth2({
-    provider: "github",
-  });
+export const github_login = () => {
+  return pb
+    .collection("users")
+    .authWithOAuth2({
+      provider: "github",
+    })
+    .then(({ record }) => set_current_user(record));
 };
 
 export const password_sign_in = (username, password) => {
-  return pb.collection("users").authWithPassword(username, password);
+  return pb
+    .collection("users")
+    .authWithPassword(username, password)
+    .then(({ record }) => set_current_user(record));
 };
 
 export const logout = () => {
   pb.authStore.clear();
 };
+
+export function useIsAdmin() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    is_admin()
+      .then(setIsAdmin)
+      .catch(() => setIsAdmin(false));
+  }, []);
+  return isAdmin;
+}

@@ -33,10 +33,9 @@ const NavigationActions = () => {
       </ul>
     </div>
   ) : (
-    <button onClick={github_login} class="btn btn-primary">
-      <Github />
-      Login
-    </button>
+    <a href="/dashboard/sign-in" class="btn btn-link btn-primary">
+      Sign in
+    </a>
   );
 };
 

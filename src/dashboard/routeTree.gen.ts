@@ -13,7 +13,10 @@
 import { Route as rootRoute } from "./routes/__root"
 import { Route as DashboardIndexImport } from "./routes/dashboard/index"
 import { Route as DashboardUsersImport } from "./routes/dashboard/users"
+import { Route as DashboardSignUpImport } from "./routes/dashboard/sign-up"
+import { Route as DashboardSignInImport } from "./routes/dashboard/sign-in"
 import { Route as DashboardSettingsImport } from "./routes/dashboard/settings"
+import { Route as DashboardUsersUseridImport } from "./routes/dashboard/users.$user_id"
 
 // Create/Update Routes
 
@@ -29,10 +32,28 @@ const DashboardUsersRoute = DashboardUsersImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardSignUpRoute = DashboardSignUpImport.update({
+  id: "/dashboard/sign-up",
+  path: "/dashboard/sign-up",
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardSignInRoute = DashboardSignInImport.update({
+  id: "/dashboard/sign-in",
+  path: "/dashboard/sign-in",
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DashboardSettingsRoute = DashboardSettingsImport.update({
   id: "/dashboard/settings",
   path: "/dashboard/settings",
   getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardUsersUseridRoute = DashboardUsersUseridImport.update({
+  id: "/$user_id",
+  path: "/$user_id",
+  getParentRoute: () => DashboardUsersRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -44,6 +65,20 @@ declare module "@tanstack/react-router" {
       path: "/dashboard/settings"
       fullPath: "/dashboard/settings"
       preLoaderRoute: typeof DashboardSettingsImport
+      parentRoute: typeof rootRoute
+    }
+    "/dashboard/sign-in": {
+      id: "/dashboard/sign-in"
+      path: "/dashboard/sign-in"
+      fullPath: "/dashboard/sign-in"
+      preLoaderRoute: typeof DashboardSignInImport
+      parentRoute: typeof rootRoute
+    }
+    "/dashboard/sign-up": {
+      id: "/dashboard/sign-up"
+      path: "/dashboard/sign-up"
+      fullPath: "/dashboard/sign-up"
+      preLoaderRoute: typeof DashboardSignUpImport
       parentRoute: typeof rootRoute
     }
     "/dashboard/users": {
@@ -60,48 +95,99 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof rootRoute
     }
+    "/dashboard/users/$user_id": {
+      id: "/dashboard/users/$user_id"
+      path: "/$user_id"
+      fullPath: "/dashboard/users/$user_id"
+      preLoaderRoute: typeof DashboardUsersUseridImport
+      parentRoute: typeof DashboardUsersImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface DashboardUsersRouteChildren {
+  DashboardUsersUseridRoute: typeof DashboardUsersUseridRoute
+}
+
+const DashboardUsersRouteChildren: DashboardUsersRouteChildren = {
+  DashboardUsersUseridRoute: DashboardUsersUseridRoute,
+}
+
+const DashboardUsersRouteWithChildren = DashboardUsersRoute._addFileChildren(
+  DashboardUsersRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   "/dashboard/settings": typeof DashboardSettingsRoute
-  "/dashboard/users": typeof DashboardUsersRoute
+  "/dashboard/sign-in": typeof DashboardSignInRoute
+  "/dashboard/sign-up": typeof DashboardSignUpRoute
+  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard": typeof DashboardIndexRoute
+  "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
 }
 
 export interface FileRoutesByTo {
   "/dashboard/settings": typeof DashboardSettingsRoute
-  "/dashboard/users": typeof DashboardUsersRoute
+  "/dashboard/sign-in": typeof DashboardSignInRoute
+  "/dashboard/sign-up": typeof DashboardSignUpRoute
+  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard": typeof DashboardIndexRoute
+  "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   "/dashboard/settings": typeof DashboardSettingsRoute
-  "/dashboard/users": typeof DashboardUsersRoute
+  "/dashboard/sign-in": typeof DashboardSignInRoute
+  "/dashboard/sign-up": typeof DashboardSignUpRoute
+  "/dashboard/users": typeof DashboardUsersRouteWithChildren
   "/dashboard/": typeof DashboardIndexRoute
+  "/dashboard/users/$user_id": typeof DashboardUsersUseridRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/dashboard/settings" | "/dashboard/users" | "/dashboard"
+  fullPaths:
+    | "/dashboard/settings"
+    | "/dashboard/sign-in"
+    | "/dashboard/sign-up"
+    | "/dashboard/users"
+    | "/dashboard"
+    | "/dashboard/users/$user_id"
   fileRoutesByTo: FileRoutesByTo
-  to: "/dashboard/settings" | "/dashboard/users" | "/dashboard"
-  id: "__root__" | "/dashboard/settings" | "/dashboard/users" | "/dashboard/"
+  to:
+    | "/dashboard/settings"
+    | "/dashboard/sign-in"
+    | "/dashboard/sign-up"
+    | "/dashboard/users"
+    | "/dashboard"
+    | "/dashboard/users/$user_id"
+  id:
+    | "__root__"
+    | "/dashboard/settings"
+    | "/dashboard/sign-in"
+    | "/dashboard/sign-up"
+    | "/dashboard/users"
+    | "/dashboard/"
+    | "/dashboard/users/$user_id"
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardUsersRoute: typeof DashboardUsersRoute
+  DashboardSignInRoute: typeof DashboardSignInRoute
+  DashboardSignUpRoute: typeof DashboardSignUpRoute
+  DashboardUsersRoute: typeof DashboardUsersRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardUsersRoute: DashboardUsersRoute,
+  DashboardSignInRoute: DashboardSignInRoute,
+  DashboardSignUpRoute: DashboardSignUpRoute,
+  DashboardUsersRoute: DashboardUsersRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -116,6 +202,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/dashboard/settings",
+        "/dashboard/sign-in",
+        "/dashboard/sign-up",
         "/dashboard/users",
         "/dashboard/"
       ]
@@ -123,11 +211,24 @@ export const routeTree = rootRoute
     "/dashboard/settings": {
       "filePath": "dashboard/settings.tsx"
     },
+    "/dashboard/sign-in": {
+      "filePath": "dashboard/sign-in.tsx"
+    },
+    "/dashboard/sign-up": {
+      "filePath": "dashboard/sign-up.tsx"
+    },
     "/dashboard/users": {
-      "filePath": "dashboard/users.tsx"
+      "filePath": "dashboard/users.tsx",
+      "children": [
+        "/dashboard/users/$user_id"
+      ]
     },
     "/dashboard/": {
       "filePath": "dashboard/index.tsx"
+    },
+    "/dashboard/users/$user_id": {
+      "filePath": "dashboard/users.$user_id.tsx",
+      "parent": "/dashboard/users"
     }
   }
 }

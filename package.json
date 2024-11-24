@@ -17,6 +17,7 @@
     "@tanstack/react-form": "^0.36.3",
     "@tanstack/react-query": "^5.61.0",
     "@tanstack/react-router": "^1.82.2",
+    "@tanstack/zod-form-adapter": "^0.36.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "astro": "^4.16.13",
@@ -27,7 +28,8 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.82.2",

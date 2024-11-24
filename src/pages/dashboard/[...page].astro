@@ -2,50 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 
 import { Dashboard as ReactDashboard } from "../../dashboard/main.tsx";
-
-import { type Route } from "@tanstack/react-router";
-import { routeTree } from "../../dashboard/routeTree.gen.ts";
-
-export async function getStaticPaths() {
-  const mapChildren = (route: Route): any[] => {
-    // Start with current route's path
-    const paths = [];
-
-    // Only add paths for routes that have actual paths
-    // @ts-ignore
-    if (route.options?.path) {
-      paths.push({
-        // @ts-ignore
-        path: route.options.path,
-      });
-    }
-
-    // Recursively add children's paths
-    if (route.children) {
-      Object.values(route.children).forEach((child) => {
-        paths.push(...mapChildren(child));
-      });
-    }
-
-    return paths;
-  };
-
-  const routes = mapChildren(routeTree as unknown as Route);
-  console.log('All routes:', routes);
-
-  return routes.map((route) => {
-    // Remove leading slash if exists and remove dashboard prefix
-    const cleanPath = route.path
-      .replace(/^\//, '')  // Remove leading slash
-      .replace(/^dashboard\//, ''); // Remove dashboard prefix if exists
-
-    return {
-      params: {
-        page: cleanPath || undefined, // Handle root path case
-      },
-    };
-  });
-}
 ---
 
 <Layout title="" showFooter={false}>
