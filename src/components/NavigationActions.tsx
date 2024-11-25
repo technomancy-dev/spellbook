@@ -28,7 +28,7 @@ const NavigationActions = () => {
         </li>
 
         <li>
-          <button onClick={logout}>Logout</button>
+          <button onClick={() => logout(() => window.location = "/")}>Logout</button>
         </li>
       </ul>
     </div>

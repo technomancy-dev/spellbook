@@ -5,7 +5,6 @@ import { $user, is_admin, useIsAdmin } from "../stores/user";
 const DashboardLayout = ({ children }) => {
   const isAdmin = useIsAdmin();
 
-  console.log({isAdmin})
   return (
     <>
       <ul class="menu menu-xs gap-2 w-full bg-base-100 lg:menu-horizontal rounded-box">

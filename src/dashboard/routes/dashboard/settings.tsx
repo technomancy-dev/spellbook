@@ -41,21 +41,18 @@ const user_schema = z.object({
 });
 
 function RouteComponent() {
-  // const [linked_github_loading, set_linked_github_loading] = useState(true);
-  // const [linked_github, set_linked_github] = useState(false);
   const user = useStore($user);
 
   const form = useForm({
     defaultValues: {
-      username: user.username,
-      email: user.email,
+      username: user?.username,
+      email: user?.email,
     },
     validatorAdapter: zodValidator(),
     validators: {
       onChange: user_schema,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
       const data = {
         username: value.username,
       };
@@ -63,7 +60,7 @@ function RouteComponent() {
       if (value.email !== user.email) {
         const email_promise = pb
           .collection("users")
-          .requestEmailChange(user.id, value.email);
+          .requestEmailChange(value.email);
         toast.promise(email_promise, {
           loading: "Loading",
           success: "Successfully changed email",
@@ -98,8 +95,6 @@ function RouteComponent() {
       .unlinkExternalAuth(pb.authStore.model.id, "github")
       .then(() => queryClient.refetchQueries({ queryKey: ["linked_github"] }));
   };
-
-  console.log({isLoading})
 
   return (
     <DashboardLayout>

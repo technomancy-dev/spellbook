@@ -1,6 +1,5 @@
 # Pocketbase data
 pb_data/
-
 # build output
 dist/
 

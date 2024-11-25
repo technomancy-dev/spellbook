@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { create_user } from "../services/user";
 import { redirect, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 
 const sign_in_schema = z
   .object({
@@ -53,7 +54,7 @@ const SignUpForm = () => {
         ).then(() => {
           navigate({ to: "/dashboard" });
         });
-        console.log(response);
+
         toast.promise(promise, {
           loading: "Signing in",
           success: "Successfully signed in",
@@ -163,9 +164,9 @@ const SignUpForm = () => {
       </button>
       <div>
         <p class="text-xs -mb-2">Already have an account?</p>
-        <a href="/sign-in" class="btn btn-link w-full">
+        <Link to="/dashboard/sign-in" class="btn btn-link w-full">
           Sign in
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 const sign_in_schema = z.object({
   email: z.string(),
@@ -123,9 +123,9 @@ const SignInForm = () => {
       </button>
       <div>
         <p class="text-xs -mb-2">Don't have an account?</p>
-        <a href="/dashboard/sign-up" class="btn btn-link w-full">
+        <Link to="/dashboard/sign-up" class="btn btn-link w-full">
           Register
-        </a>
+        </Link>
       </div>
     </div>
   );
