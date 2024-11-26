@@ -80,13 +80,13 @@ function RouteComponent() {
     queryKey: ["linked_github"],
     queryFn: () =>
       pb
-        .collection("users")
-        .listExternalAuths(pb.authStore.model.id)
+        .collection("_externalAuths")
+        .getFirstListItem(
+          `recordRef="${pb.authStore.model.id}" && provider="github"`,
+        )
         .then((result) => {
-          const github = result.find(
-            (account) => account.provider === "github",
-          );
-          return !!github;
+          console.log(result);
+          return !!result;
         }),
   });
 
