@@ -18,6 +18,7 @@ export const subscribe_user_to_auth_store = () => {
   return pb.authStore.onChange(async (_, model) => {
     if (model === null) return set_current_user(null);
 
+    console.debug("SUBSCRIPTION-CHANGE")
     const user = await query_client.fetchQuery({
       queryKey: ["user"],
       queryFn: () => {
