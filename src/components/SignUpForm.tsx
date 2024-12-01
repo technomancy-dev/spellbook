@@ -1,11 +1,11 @@
 import { Github } from "lucide-react";
-import { github_login, password_sign_in } from "../stores/user";
+import { github_login, password_sign_in } from "@/services/user";
 import { useForm } from "@tanstack/react-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { create_user } from "../services/user";
-import { redirect, useNavigate } from "@tanstack/react-router";
+import { create_user } from "@/services/user";
+import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 
 const sign_in_schema = z

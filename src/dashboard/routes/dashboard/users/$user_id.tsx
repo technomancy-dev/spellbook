@@ -1,9 +1,9 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import DashboardLayout from "../../../../components/DashboardLayout";
+import DashboardLayout from "@/components/DashboardLayout";
 import { Link } from "@tanstack/react-router";
-import pb from "../../../../pocketbase";
+import pb from "@/pocketbase";
 import { useQuery } from "@tanstack/react-query";
 import { is_admin } from "@/services/user";
 import { redirect } from "@tanstack/react-router";

@@ -1,10 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { useStore } from "@nanostores/react";
-import { $user, is_admin, useIsAdmin } from "../stores/user";
+import { useIsAdmin } from "@/hooks/user";
 
 const DashboardLayout = ({ children }) => {
   const isAdmin = useIsAdmin();
-
   return (
     <>
       <ul class="menu menu-xs gap-2 w-full bg-base-100 lg:menu-horizontal rounded-box">

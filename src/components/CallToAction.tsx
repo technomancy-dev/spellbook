@@ -1,5 +1,6 @@
 import { useStore } from "@nanostores/react";
-import { $user, github_login } from "../stores/user";
+import { $user } from "@/stores/user";
+import { github_login } from "@/services/user";
 import { Github } from "lucide-react";
 
 const CallToAciton = () => {

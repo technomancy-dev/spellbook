@@ -1,5 +1,5 @@
 import { Github } from "lucide-react";
-import { github_login, password_sign_in } from "../stores/user";
+import { github_login, password_sign_in } from "@/services/user";
 import { useForm } from "@tanstack/react-form";
 import toast from "react-hot-toast";
 import { z } from "zod";

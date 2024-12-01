@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { $user } from "../stores/user";
+import { $user } from "@/stores/user";
 import { is_admin } from "@/services/user";
 
 export function useIsAdmin() {

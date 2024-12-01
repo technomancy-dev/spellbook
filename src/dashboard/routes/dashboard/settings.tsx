@@ -1,17 +1,19 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { $user, github_login, is_authenticated } from "../../../stores/user";
+import { $user } from "@/stores/user";
+import { is_authenticated } from "@/services/user";
+import { github_login } from "@/services/user";
 import { CircleX, Github, Upload } from "lucide-react";
-import DashboardLayout from "../../../components/DashboardLayout";
-import pb from "../../../pocketbase";
+import DashboardLayout from "@/components/DashboardLayout";
+import pb from "@/pocketbase";
 import { useStore } from "@nanostores/react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
-import { queryClient } from "../../../stores/query";
+import { query_client } from "@/stores/query";
 
 function FieldInfo({ field }) {
   return (

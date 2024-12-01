@@ -1,11 +1,11 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { is_admin } from "@/services/user";
-import pb from "../../../../pocketbase";
+import pb from "@/pocketbase";
 import { useQuery } from "@tanstack/react-query";
-import { delete_user } from "../../../../services/user";
+import { delete_user } from "@/services/user";
 import { redirect } from "@tanstack/react-router";
-import DashboardLayout from "../../../../components/DashboardLayout";
+import DashboardLayout from "@/components/DashboardLayout";
 
 export const Route = createFileRoute("/dashboard/users/")({
   component: RouteComponent,

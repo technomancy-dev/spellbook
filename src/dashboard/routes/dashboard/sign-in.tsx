@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFileRoute } from "@tanstack/react-router"
-import SignInForm from "../../../components/SignInForm"
+import SignInForm from "@/components/SignInForm"
 import { is_authenticated } from "@/services/user";
 import { redirect } from "@tanstack/react-router";
 

@@ -1,7 +1,7 @@
 ---
-import Navigation from "../components/Navigation";
-import Footer from "../components/Footer.astro";
-import NavigationActions from "../components/NavigationActions";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer.astro";
+import NavigationActions from "@/components/NavigationActions";
 import { Toaster } from "react-hot-toast";
 
 interface Props {
@@ -32,9 +32,9 @@ const { title, showFooter = true } = Astro.props;
   {showFooter && <Footer />}
 
   <script>
-    import pb from "../pocketbase";
-    import { $user } from "../stores/user";
-    import { subscribe_user_to_auth_store } from "../stores/user";
+    import pb from "@/pocketbase";
+    import { $user } from "@/stores/user";
+    import { subscribe_user_to_auth_store } from "@/stores/user";
 
     $user.set(pb.authStore.model);
     subscribe_user_to_auth_store();

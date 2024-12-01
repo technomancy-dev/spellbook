@@ -1,7 +1,7 @@
-import { Github } from "lucide-react";
 import { useStore } from "@nanostores/react";
-import { $user, github_login, logout } from "../stores/user";
-import pb from "../pocketbase";
+import { $user } from "@/stores/user";
+import { sign_out } from "@/services/user";
+import pb from "@/pocketbase";
 
 const NavigationActions = () => {
   const user = useStore($user);
@@ -28,7 +28,9 @@ const NavigationActions = () => {
         </li>
 
         <li>
-          <button onClick={() => logout(() => window.location = "/")}>Logout</button>
+          <button onClick={() => sign_out(() => (window.location.href = "/"))}>
+            Sign out
+          </button>
         </li>
       </ul>
     </div>

@@ -1,7 +1,7 @@
 import { isNil } from "ramda";
-import pb from "../pocketbase";
-import { query_client } from "../stores/query";
-import { $user, set_current_user } from "../stores/user";
+import pb from "@/pocketbase";
+import { query_client } from "@/stores/query";
+import { $user, set_current_user } from "@/stores/user";
 import { ONE_SECOND } from "@/helpers/time";
 
 export const delete_user = (id) => {
