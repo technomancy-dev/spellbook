@@ -1,7 +1,8 @@
 import { equals } from "ramda";
 import { atom } from "nanostores";
-import pb from "../pocketbase";
-import { sign_out } from "../services/user";
+import pb from "@/pocketbase";
+import { sign_out } from "@/services/user";
+import { query_client } from "@/stores/query";
 
 export const $user = atom(null);
 
@@ -17,14 +18,18 @@ export const subscribe_user_to_auth_store = () => {
   return pb.authStore.onChange(async (_, model) => {
     if (model === null) return set_current_user(null);
 
-    console.count("RUNNING SUBSCRIPTION CHANGE");
-    const user = await pb
-      .collection("users")
-      .getOne(pb.authStore.model.id, { requestKey: null })
-      .catch((e) => {
-        console.error(e);
-        sign_out(() => window.location.assign("/"));
-      });
+    const user = await query_client.fetchQuery({
+      queryKey: ["user"],
+      queryFn: () => {
+        return pb
+          .collection("users")
+          .getOne(pb.authStore.model.id, { requestKey: null })
+          .catch((e) => {
+            console.error(e);
+            sign_out(() => window.location.assign("/"));
+          });
+      },
+    });
 
     if (!user) return sign_out(() => window.location.assign("/"));
 

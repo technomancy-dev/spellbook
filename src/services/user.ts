@@ -1,13 +1,14 @@
 import { isNil } from "ramda";
 import pb from "../pocketbase";
-import { queryClient } from "../stores/query";
+import { query_client } from "../stores/query";
 import { $user, set_current_user } from "../stores/user";
+import { ONE_SECOND } from "@/helpers/time";
 
 export const delete_user = (id) => {
   pb.collection("users")
     .delete(id)
     .then(() => {
-      queryClient.refetchQueries({ queryKey: ["users"] });
+      query_client.refetchQueries({ queryKey: ["users"] });
     });
 };
 
@@ -41,10 +42,18 @@ export const is_authenticated = () => {
 
   // Don't await this, let it run in the background.
   // This lets pages feel instant, and will simply log them out if it fails later.
-
-  pb.collection("users")
-    .authRefresh({ requestKey: null })
-    .catch(() => sign_out(() => window.location.assign("/")));
+  // staleTime ONE_SECOND prevents this from running multiple times to pages
+  // that have multiple authentication checks.
+  query_client.fetchQuery({
+    queryKey: ["user_refresh"],
+    queryFn: () => {
+      return pb
+        .collection("users")
+        .authRefresh({ requestKey: null })
+        .catch(() => sign_out(() => window.location.assign("/")));
+    },
+    staleTime: ONE_SECOND,
+  });
 
   return pb.authStore.isValid;
 };
