@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { is_admin, is_authenticated } from "../../../../stores/user";
+import { is_admin } from "@/services/user";
 import pb from "../../../../pocketbase";
 import { useQuery } from "@tanstack/react-query";
 import { delete_user } from "../../../../services/user";
@@ -10,7 +10,7 @@ import DashboardLayout from "../../../../components/DashboardLayout";
 export const Route = createFileRoute("/dashboard/users/")({
   component: RouteComponent,
   beforeLoad: async () => {
-    if (!is_authenticated() || (await is_admin()) === false) {
+    if (!is_admin()) {
       throw redirect({
         to: "/dashboard",
       });
@@ -78,13 +78,8 @@ function RouteComponent() {
                     >
                       Delete
                     </button>
-                    <Link
-                      to={`/dashboard/users/${user.id}`}
-
-                    >
-                      <div  class="btn btn-primary btn-xs">
-                      Edit
-                      </div>
+                    <Link to={`/dashboard/users/${user.id}`}>
+                      <div class="btn btn-primary btn-xs">Edit</div>
                     </Link>
                   </div>
                 </td>
