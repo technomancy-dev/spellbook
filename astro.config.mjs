@@ -8,6 +8,9 @@ export default defineConfig({
   output: "server",
   integrations: [tailwind(), react()],
   vite: {
+    alias: {
+      "@": "/src",
+    },
     plugins: [
       TanStackRouterVite({
         routesDirectory: "./src/dashboard/routes",
