@@ -55,7 +55,7 @@ const SignUpForm = () => {
           navigate({ to: "/dashboard" });
         });
 
-        toast.promise(promise, {
+        toast.promise(sign_in_promise, {
           loading: "Signing in",
           success: "Successfully signed in",
           error: (err) => `${err.toString()}`,
