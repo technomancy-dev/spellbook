@@ -40,12 +40,14 @@ export const Route = createFileRoute("/dashboard/settings")({
 const user_schema = z.object({
   username: z.string().min(3),
   email: z.string().email(),
-  avatar: z.any()
+  avatar: z.any(),
 });
 
 function RouteComponent() {
   const user = useStore($user);
-  const [avatarPreview, setAvatarPreview] = useState(user?.avatar ? pb.files.getUrl(user, user?.avatar) : null);
+  const [avatarPreview, setAvatarPreview] = useState(
+    user?.avatar ? pb.files.getUrl(user, user?.avatar) : null,
+  );
   const fileInputRef = useRef(null); // Add this ref for the file input
 
   const form = useForm({
@@ -69,9 +71,6 @@ function RouteComponent() {
           formData.append("avatar", "");
         }
 
-        console.log(formData)
-
-        // Update with your actual API endpoint
         const promise = pb.collection("users").update(user.id, formData);
 
         if (value.email !== user.email) {
@@ -81,16 +80,17 @@ function RouteComponent() {
 
           toast.promise(email_promise, {
             loading: "Updating email...",
-            success: "Successfully changed email",
+            success:
+              "Email change request sent, please check your email to confirm",
+            error: (err) => `${err.toString()}`,
+          });
+        } else {
+          toast.promise(promise, {
+            loading: "Updating profile...",
+            success: "Successfully updated settings",
             error: (err) => `${err.toString()}`,
           });
         }
-
-        toast.promise(promise, {
-          loading: "Updating profile...",
-          success: "Successfully updated settings",
-          error: (err) => `${err.toString()}`,
-        });
       } catch (error) {
         toast.error(`Error updating profile: ${error.toString()}`);
       }
@@ -106,7 +106,7 @@ function RouteComponent() {
           `recordRef="${pb.authStore.model.id}" && provider="github"`,
         )
         .then((result) => {
-          console.log(result);
+
           return !!result;
         }),
   });
@@ -114,7 +114,7 @@ function RouteComponent() {
   const unlink_github = () => {
     pb.collection("users")
       .unlinkExternalAuth(pb.authStore.model.id, "github")
-      .then(() => queryClient.refetchQueries({ queryKey: ["linked_github"] }));
+      .then(() => query_client.refetchQueries({ queryKey: ["linked_github"] }));
   };
 
   const handleFileChange = (field, event) => {
@@ -149,7 +149,7 @@ function RouteComponent() {
     <DashboardLayout>
       <div class="grid w-full grid-cols-2 gap-24 p-6 mx-auto">
         <form
-          class="flex w-full flex-col gap-2"
+          class="flex w-full flex-col max-w-sm gap-2"
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -176,7 +176,7 @@ function RouteComponent() {
                   <div className="flex avatar indicator absolute top-4 -right-4 items-center gap-4">
                     <button
                       type="button"
-                      class="indicator-item bg-base-100 rounded-full right-1 top-1 p-1"
+                      class="indicator-item bg-base-100 rounded-full -right-2 -top-2 p-1"
                       onClick={(e) => {
                         e.stopPropagation();
                         setAvatarPreview(null);
@@ -197,24 +197,6 @@ function RouteComponent() {
               </div>
             )}
           />
-          {/* <form.Field
-            name="avatar"
-            children={(field) => (
-              <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text">Avatar</span>
-                </div>
-                <input
-                  type="file"
-                  class="file-input file-input-bordered w-full"
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                />
-              </label>
-            )}
-          /> */}
           <form.Field
             name="username"
             children={(field) => (
@@ -233,7 +215,7 @@ function RouteComponent() {
               </label>
             )}
           />
-          {/* <form.Field
+          <form.Field
             name="email"
             children={(field) => (
               <label class="input input-bordered flex items-center gap-2">
@@ -250,7 +232,7 @@ function RouteComponent() {
                 <FieldInfo field={field} />
               </label>
             )}
-          /> */}
+          />
           <form.Subscribe
             selector={(state) => [
               state.canSubmit,
@@ -268,7 +250,7 @@ function RouteComponent() {
             )}
           />
         </form>
-        <div>
+        <div class="max-w-sm">
           <p class="font-black">Linked accounts</p>
           {isLoading && (
             <button class="btn w-full skeleton" disabled={true}>
@@ -286,7 +268,7 @@ function RouteComponent() {
               <button
                 onClick={() =>
                   github_login().then(() =>
-                    queryClient.refetchQueries({ queryKey: ["linked_github"] }),
+                    query_client.refetchQueries({ queryKey: ["linked_github"] }),
                   )
                 }
                 class="btn w-full btn-primary"
