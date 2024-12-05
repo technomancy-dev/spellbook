@@ -1,10 +1,16 @@
-# Astro Starter Kit: Basics
+# Spellbook Basics
+
+Spellbook is an extemely opinionated Astro starter kit.
+
+It comes with a dashboard that is a Single Page App powered by TanStack Router.
 
 Github App setup.
 
 Homepage URL: `http://localhost:4321/`
 Callback URL: `http://localhost:8080/api/oauth2-redirect`
 
+
+Build & Run the Pocketbase docker image from the pocketbase.Dockerfile.
 
 ```sh
 docker build -t spellbook-pocketbase -f pocketbase.Dockerfile .
@@ -17,55 +23,23 @@ docker run -d \
   spellbook-pocketbase
 ```
 
-```sh
-npm create astro@latest -- --template basics
-```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Why a SPA?
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+When I first started my career the new hotness was making Single Page Apps.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+As a new programmer I was able to build incredibly powerfull apps by using React and React Router.
 
-## 🚀 Project Structure
+As time went on Next.js came out, and like most of the industry I bet big on the people behind it.
 
-Inside of your Astro project, you'll see the following folders and files:
+With each release things got more complex and obtuse but I had confidence that the Vercel (then Zeit)
+team knew best.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Now though, with 10 years of building for the web I reflect on the early days and to me it is plainly clear we
+as an industry have made a mistake.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Single Page Apps are significantly easier to make than the BFF stacks that have gained popularity, and SPA's
+often result in a better user experience.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+I think this will continue to be the case, and with Local First and syncing engines like Zero I think the user
+experience will become significantly better for apps that embrace this ideology.
