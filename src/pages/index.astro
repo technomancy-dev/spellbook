@@ -1,23 +1,425 @@
 ---
 import CallToAciton from "@/components/CallToAction";
+import Pocketbase from "@/components/Pocketbase.astro";
+import Navigation from "@/components/Navigation.tsx";
+import AstroLogo from "@/components/AstroLogo.astro";
+import SSTLogo from "@/components/SSTLogo.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
-    <div class="hero bg-base-200 min-h-screen">
-      <div
-        class="hero-content w-full justify-between flex-col lg:flex-row-reverse"
-      >
-        <div class="text-center lg:text-left">
-          <h1 class="text-5xl font-bold">Login now!</h1>
-          <p class="py-6 max-w-prose">
-            This is a minimal starter that sets up email & password login and a
-            SPA dashboard.
+    <div class="hero items-start pt-28 bg-base-100">
+      <div class="hero-content items-start flex-wrap w-full justify-between">
+        <div class="text-center prose max-w-xl lg:text-left">
+          <h1
+            id="success"
+            class="text-6xl pt-8 px-2 mb-0 leading-3 max-w-lg font-black"
+          >
+            Fall into the pit of <span class="text-9xl mb-0">success</span>
+          </h1>
+          <p class="py-6 mt-0 pr-8 text-2xl max-w-lg">
+            Spellbook is an Astro starter that makes doing the right things easy and the wrong things
+            hard.
           </p>
+          <div class="flex gap-2">
+            <div>
+              <button class="btn btn-primary btn-wide">Get Started</button>
+              <p class="mt-1">
+                <span class="text-primary">Free forever</span> (14 left btw 😉)
+              </p>
+            </div>
+            <button class="btn btn-primary btn-ghost btn-wide">Docs</button>
+          </div>
         </div>
-        <CallToAciton client:only="react" />
+        <div
+          id="stack"
+          class="grow px-8 py-8 rotate-2 flex justify-center flex-col items-center prose prose-sm"
+        >
+          <!-- <div class="divider mb-0 mt-0"></div> -->
+          <div>
+            <p
+              id="simple"
+              class="text-3xl text-base-100 pt-4 px-6 w-full mb-2 grow font-black"
+            >
+              Keep it simple, make it great.
+            </p>
+            <!-- <p class="my-0">When your tools are simple, building is easy.</p> -->
+          </div>
+          <div
+            class="grid grid-cols-2 pt-10 justify-between max-w-md mt-0 w-full gap-8"
+          >
+            <div class="text-md flex items-center gap-4 font-bold">
+              <AstroLogo height="40" width="40" /> Astro Base
+            </div>
+            <div class="text-md flex items-center gap-4 font-bold">
+              <Pocketbase height="40" width="40" /> PocketBase Backend
+            </div>
+            <div class="text-md flex items-center gap-4 font-bold">
+              <img src="/public/tanstack.png" height="40" width="40" /> TanStack
+              CSR
+            </div>
+            <div class="text-md flex items-center gap-4 font-bold">
+              <SSTLogo height="40" width="40" /> SST Deployments
+            </div>
+          </div>
+          <!-- <div class="divider"></div> -->
+        </div>
+
+        <!-- <CallToAciton client:only="react" /> -->
+      </div>
+    </div>
+    <div class="flex items-start justify-between">
+      <div class="prose ml-28 my-32 prose-lg max-w-lg">
+        <p class="text-3xl">
+          You are being <span class="font-black">lied to.</span>
+          <br /> And the <span id="liars" class="font-black"
+            >liars are profiting</span
+          > off of it.
+        </p>
+        <p class="mt-6">Web development doesn't need to be hard.</p>
+        <p class="mt-6">
+          With modern tooling and the right guidance building for the web is
+          actually very simple. But there is money to be found in making you
+          scared and conditioning you into learned helplessness.
+        </p>
+        <p>
+          Large companies are investing heavily in making tech stacks obtuse,
+          intimidating, and dependant on their infrastructure they assure you is
+          too complex for you to even begin to understand.
+        </p>
+      </div>
+      <div class="flex flex-col mx-12">
+        <div class="mockup-code mt-20">
+          <pre
+            data-prefix="$"
+            class="text-secondary"><code>npm create astro@latest -- --template <span class="text-success">technomancy-dev/spellbook</span></code></pre>
+          <pre
+            data-prefix=">"
+            class="text-warning"><code>installing...</code></pre>
+          <pre
+            data-prefix=">"
+            class="text-success"><code>Time to Ship!</code></pre>
+        </div>
+        <div class="prose mt-12">
+          <p class="text-3xl font-black">It's not just the companies</p>
+          <p>
+            Not only are their pockets deep enough to pay off every mustached
+            influencer they can find, but their tentacles run wide.
+          </p>
+          <p>
+            Many indiehackers have bought into <span
+              id="complexity"
+              class="text-xl font-black"
+            >
+              The ComplexityStack<span class="text-base font-normal align-super"
+                >™</span
+              >
+            </span>
+            and have profited off of promising to help you make sense of it.
+          </p>
+          <p>They prey on your insecurity and sell you hope.</p>
+        </div>
+      </div>
+    </div>
+    <div data-theme="lofi" class="flex py-28 px-28">
+
+      <div class="perspective-1000">
+        <div
+
+          class="mockup-browser border-dashed rotate-x-[20deg] -translate-x-12 skew-y-6 shadow-xl -translate-y-12 -rotate-z-[20deg] rotate-y-[20deg] scale-90 mx-12 bg-base-100 border"
+        >
+          <div class="mockup-browser-toolbar">
+            <div class="input before:hidden after:hidden">
+              https://dream.app
+            </div>
+          </div>
+          <div class="stats p-6 rounded-none shadow">
+            <div class="stat">
+              <div class="stat-figure text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="inline-block h-8 w-8 stroke-current"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="stat-title">Total Likes</div>
+              <div class="stat-value text-primary">25.6K</div>
+              <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-figure text-secondary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="inline-block h-8 w-8 stroke-current"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <div class="stat-title">Page Views</div>
+              <div class="stat-value text-secondary">2.6M</div>
+              <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-figure text-secondary">
+                <div class="avatar online">
+                  <div class="w-16 rounded-full">
+                    <img
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="stat-value">86%</div>
+              <div class="stat-title">Tasks done</div>
+              <div class="stat-desc text-secondary">31 tasks remaining</div>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <th>Name</th>
+                  <th>Job</th>
+                  <th>Favorite Color</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Hart Hagerty</div>
+                        <div class="text-sm opacity-50">United States</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    Zemlak, Daniel and Leannon
+                    <br />
+                    <span class="badge badge-ghost badge-sm"
+                      >Desktop Support Technician</span
+                    >
+                  </td>
+                  <td>Purple</td>
+                  <th>
+                    <button class="btn btn-ghost btn-xs">details</button>
+                  </th>
+                </tr>
+                <!-- row 2 -->
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Brice Swyre</div>
+                        <div class="text-sm opacity-50">China</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    Carroll Group
+                    <br />
+                    <span class="badge badge-ghost badge-sm"
+                      >Tax Accountant</span
+                    >
+                  </td>
+                  <td>Red</td>
+                  <th>
+                    <button class="btn btn-ghost btn-xs">details</button>
+                  </th>
+                </tr>
+                <!-- row 3 -->
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Marjy Ferencz</div>
+                        <div class="text-sm opacity-50">Russia</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    Rowe-Schoen
+                    <br />
+                    <span class="badge badge-ghost badge-sm"
+                      >Office Assistant I</span
+                    >
+                  </td>
+                  <td>Crimson</td>
+                  <th>
+                    <button class="btn btn-ghost btn-xs">details</button>
+                  </th>
+                </tr>
+                <!-- row 4 -->
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">Yancy Tear</div>
+                        <div class="text-sm opacity-50">Brazil</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    Wyman-Ledner
+                    <br />
+                    <span class="badge badge-ghost badge-sm"
+                      >Community Outreach Specialist</span
+                    >
+                  </td>
+                  <td>Indigo</td>
+                  <th>
+                    <button class="btn btn-ghost btn-xs">details</button>
+                  </th>
+                </tr>
+              </tbody>
+              <!-- foot -->
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Job</th>
+                  <th>Favorite Color</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="prose">
+        <p class="text-5xl mb-2 font-black">
+          Launch fast, iterate faster, print money
+        </p>
+        <p class="mt-0 text-right text-xs font-normal">
+          (idk about the money part but maybe)
+        </p>
+        <p class="text-2xl font-bold">📦 Packed full of good stuff.</p>
+        <ol>
+          <li>Advanced user accounts.</li>
+          <li>SEO optimized blog and marketing pages</li>
+          <li>Powerful Single Page App</li>
+          <li>Backround jobs & Email</li>
+          <li>Easy styling and themeing</li>
+          <li>Deploy wherever with a single command</li>
+        </ol>
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  import { annotate } from "rough-notation";
+
+  const sucess = document.querySelector("#success");
+  const simple = document.querySelector("#simple");
+  const stack = document.querySelector("#stack");
+  const liars = document.querySelector("#liars");
+  const complexity = document.querySelector("#complexity");
+
+  const annotation = annotate(sucess, {
+    type: "bracket",
+    brackets: ["left", "right"],
+    color: "#BD93F9",
+  });
+
+  const annotation2 = annotate(simple, {
+    type: "highlight",
+  });
+
+  const annotation3 = annotate(stack, {
+    type: "circle",
+  });
+
+  const annotation4 = annotate(complexity, {
+    type: "crossed-off",
+    color: "#2B2836",
+  });
+
+  const annotation5 = annotate(liars, {
+    type: "underline",
+    color: "#F36A66",
+  });
+
+  annotation.show();
+  annotation2.show();
+  annotation3.show();
+  annotation4.show();
+  annotation5.show();
+</script>
