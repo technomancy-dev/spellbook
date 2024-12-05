@@ -20,7 +20,7 @@ export const subscribe_user_to_auth_store = () => {
 
     console.debug("SUBSCRIPTION-CHANGE")
     const user = await query_client.fetchQuery({
-      queryKey: ["user"],
+      queryKey: ["user_auth"],
       queryFn: () => {
         return pb
           .collection("users")
