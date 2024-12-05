@@ -56,7 +56,7 @@ import Layout from "@/layouts/Layout.astro";
               <Pocketbase height="40" width="40" /> PocketBase Backend
             </div>
             <div class="text-md flex items-center gap-4 font-bold">
-              <img src="/public/tanstack.png" height="40" width="40" /> TanStack
+              <img src="/tanstack.png" height="40" width="40" /> TanStack
               CSR
             </div>
             <div class="text-md flex items-center gap-4 font-bold">
@@ -379,6 +379,78 @@ import Layout from "@/layouts/Layout.astro";
           <li>Easy styling and themeing</li>
           <li>Deploy wherever with a single command</li>
         </ol>
+      </div>
+    </div>
+    <div class="bg-base-200 py-24 sm:py-32">
+      <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="text-center text-base/7 font-semibold text-primary">Deploy faster</h2>
+        <p class="mx-auto mt-2 max-w-lg text-balance text-center text-4xl tracking-tight font-black text-base-content sm:text-5xl">Everything you need to deploy your app</p>
+        <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+          <div class="relative lg:row-span-2">
+            <div class="absolute inset-px rounded-lg bg-base-100 lg:rounded-l-[2rem]"></div>
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
+              <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                <p class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center">Mobile friendly</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</p>
+              </div>
+              <div class="relative min-h-[30rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm">
+                <div class="absolute inset-x-10 bottom-0 top-10 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-neutral bg-neutral shadow-2xl">
+                  <img class="size-full object-cover object-top" src="/api/placeholder/400/600" alt="Mobile friendly interface">
+                </div>
+              </div>
+            </div>
+            <div class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 lg:rounded-l-[2rem]"></div>
+          </div>
+          <div class="relative max-lg:row-start-1">
+            <div class="absolute inset-px rounded-lg bg-base-100 max-lg:rounded-t-[2rem]"></div>
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
+              <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                <p class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center">Performance</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit.</p>
+              </div>
+              <div class="flex flex-1 items-center justify-center px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2">
+                <img class="w-full max-lg:max-w-xs" src="/api/placeholder/300/200" alt="Performance metrics">
+              </div>
+            </div>
+            <div class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 max-lg:rounded-t-[2rem]"></div>
+          </div>
+          <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+            <div class="absolute inset-px rounded-lg bg-base-100"></div>
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
+              <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                <p class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center">Security</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center">Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi.</p>
+              </div>
+              <div class="flex flex-1 items-center [container-type:inline-size] max-lg:py-6 lg:pb-2">
+                <img class="h-[min(152px,40cqw)] object-cover" src="/api/placeholder/200/152" alt="Security features">
+              </div>
+            </div>
+            <div class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5"></div>
+          </div>
+          <div class="relative lg:row-span-2">
+            <div class="absolute inset-px rounded-lg bg-base-100 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
+              <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                <p class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center">Powerful APIs</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center">Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida.</p>
+              </div>
+              <div class="relative min-h-[30rem] w-full grow">
+                <div class="absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl bg-neutral shadow-2xl">
+                  <div class="flex bg-neutral-focus/40 ring-1 ring-base-content/5">
+                    <div class="-mb-px flex text-sm/6 font-medium text-neutral-content/70">
+                      <div class="border-b border-r border-b-base-content/20 border-r-base-content/10 bg-base-content/5 px-4 py-2 text-base-content">NotificationSetting.jsx</div>
+                      <div class="border-r border-neutral-content/10 px-4 py-2">App.jsx</div>
+                    </div>
+                  </div>
+                  <div class="px-6 pb-14 pt-6">
+                    <!-- Code example would go here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
