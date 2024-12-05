@@ -22,7 +22,7 @@ export const Route = createFileRoute("/dashboard/users/$user_id")({
 function RouteComponent() {
   const { user_id } = Route.useParams();
   const { data: user } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", user_id],
     queryFn: () => pb.collection("users").getOne(user_id),
   });
 
