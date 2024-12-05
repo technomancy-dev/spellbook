@@ -18,10 +18,10 @@ export default {
           primary: "#84FBA2",
           secondary: "#BD93F9",
           accent: "#F3E4A2",
-          neutral: "#48445A",
-          "base-100": "#2B2836",
-          "base-200": "#4e4c59",
-          "base-300": "#757280",
+          neutral: "#2D2B38",      // Base neutral
+          "base-100": "#2B2836",   // Very close to neutral for cohesion
+          "base-200": "#312F3C",   // Slightly lighter for contrast
+          "base-300": "#34323F",    // A bit lighter still for top layers
           info: "#93B4FF",
           success: "#84FBA2",
           warning: "#FFB793",
