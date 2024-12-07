@@ -3,6 +3,12 @@ import pb from "@/pocketbase";
 import { query_client } from "@/stores/query";
 import { $user, set_current_user } from "@/stores/user";
 import { ONE_SECOND } from "@/helpers/time";
+import { queryOptions } from "@tanstack/react-query";
+
+export const users_query_options = queryOptions({
+  queryKey: ["users"],
+  queryFn: () => pb.collection("users").getFullList(),
+});
 
 export const delete_user = (id) => {
   pb.collection("users")
@@ -58,11 +64,11 @@ export const is_authenticated = () => {
   return pb.authStore.isValid;
 };
 
-export const is_admin = (user) => {
+export const is_admin = (user?) => {
   if (!is_authenticated()) {
     return false;
   }
   if (isNil(user)) user = $user.get();
 
-  return user.role === "manager";
+  return user?.role === "manager";
 };

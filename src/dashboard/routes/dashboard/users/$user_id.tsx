@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/layouts/dashboard/dashboard-layout";
 import { Link } from "@tanstack/react-router";
 import pb from "@/pocketbase";
 import { useQuery } from "@tanstack/react-query";

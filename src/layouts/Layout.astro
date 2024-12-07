@@ -13,7 +13,7 @@ const { title, showFooter = true } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html class="min-h-[100dvh] h-full" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -22,34 +22,36 @@ const { title, showFooter = true } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
+  <body class="min-h-[100dvh] flex flex-col">
   <Navigation>
     <NavigationActions client:only="react" />
   </Navigation>
-  <body class="grid">
     <Toaster client:only="react" />
+
     <slot />
+
+    {showFooter && <Footer />}
   </body>
-  {showFooter && <Footer />}
 
   <script>
-    import createCustomLogger from "@/logger";
     import pb from "@/pocketbase";
     import { $user } from "@/stores/user";
     import { subscribe_user_to_auth_store } from "@/stores/user";
 
     $user.set(pb.authStore.model);
     subscribe_user_to_auth_store();
-    createCustomLogger();
   </script>
 
   <style is:global>
+    html,
     body {
-      @apply h-full flex flex-col;
+      @apply min-h-[100dvh];
+    }
+    body {
+      @apply flex flex-col;
     }
     main {
-      /* @apply h-full flex flex-col; */
+      @apply flex-1 flex flex-col;
     }
   </style>
-
-
 </html>

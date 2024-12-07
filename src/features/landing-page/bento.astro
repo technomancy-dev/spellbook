@@ -1,0 +1,252 @@
+---
+import { Code } from "astro:components";
+import AWSLogo from "@/components/AWSLogo.astro";
+import CloudFlareLogo from "@/components/CloudFlareLogo.astro";
+import HetznerLogo from "@/components/HetznerLogo.astro";
+import NetlifyLogo from "@/components/NetlifyLogo.astro";
+
+const router_code = `
+export const Route = createFileRoute("/dashboard/settings")({
+  component: RouteComponent,
+  beforeLoad: async () => {
+    if (!is_authenticated()) {
+      throw redirect({
+        to: "/dashboard/sign-in",
+      });
+    }
+  },
+});
+`;
+
+const pb_code = `
+pb.collection("users")
+  .delete(id)
+  .then(() => {
+    query_client
+      .refetchQueries({
+        queryKey: ["users"]
+      });
+    });
+`;
+---
+
+<div class="bg-base-100 py-24 sm:py-32">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <h2 class="text-center text-base/7 font-semibold text-primary">
+      Deploy faster
+    </h2>
+    <p
+      class="mx-auto mt-2 max-w-lg text-balance text-center text-4xl tracking-tight font-black text-base-content sm:text-5xl"
+    >
+      Everything you need to deploy your app
+    </p>
+    <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+      <div class="relative lg:row-span-2">
+        <div
+          class="absolute inset-px rounded-lg bg-base-100 lg:rounded-l-[2rem]"
+        >
+        </div>
+        <div
+          class="relative bg-base-200 flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]"
+        >
+          <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+            <p
+              class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center"
+            >
+              PocketBase for an easy to use Backend.
+            </p>
+            <p
+              class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center"
+            >
+              With PocketBase you gain a full admin UI that will give you all
+              the powers you need to be a backend pro, along with an incredibly
+              simple API to power your app.
+            </p>
+          </div>
+          <div
+            class="relative min-h-[30rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm"
+          >
+            <div class="absolute inset-x-10 bottom-0 top-10 overflow-hidden">
+              <div class="mockup-code bg-base-100">
+                <Code
+                  class="w-full !bg-transparent !overflow-hidden p-8"
+                  code={pb_code}
+                  lang="js"
+                  theme="dracula-soft"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 lg:rounded-l-[2rem]"
+        >
+        </div>
+      </div>
+      <div class="relative max-lg:row-start-1">
+        <div
+          class="absolute inset-px rounded-lg bg-base-100 max-lg:rounded-t-[2rem]"
+        >
+        </div>
+        <div
+          class="relative bg-base-200 flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]"
+        >
+          <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+            <p
+              class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center"
+            >
+              Astro for Static Performance
+            </p>
+            <p
+              class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center"
+            >
+              All your marketing and blog pages will be generated at build time,
+              ensuring you check all the SEO and lighthouse boxes to rank well.
+            </p>
+          </div>
+          <div
+            class="flex flex-1 items-center justify-between px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2"
+          >
+            <div
+              class="radial-progress text-green-400"
+              style="--value:98; --size:4rem; --thickness: 2px;"
+              role="progressbar"
+            >
+              98
+            </div>
+            <div
+              class="radial-progress text-green-400"
+              style="--value:98; --size:4rem; --thickness: 2px;"
+              role="progressbar"
+            >
+              98
+            </div>
+            <div
+              class="radial-progress text-green-400"
+              style="--value:98; --size:4rem; --thickness: 2px;"
+              role="progressbar"
+            >
+              99
+            </div>
+            <div
+              class="radial-progress text-green-400"
+              style="--value:100; --size:4rem; --thickness: 2px;"
+              role="progressbar"
+            >
+              100
+            </div>
+          </div>
+        </div>
+        <div
+          class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 max-lg:rounded-t-[2rem]"
+        >
+        </div>
+      </div>
+      <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+        <div class="absolute inset-px rounded-lg bg-base-100"></div>
+        <div
+          class="relative bg-base-200 flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]"
+        >
+          <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+            <p
+              class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center"
+            >
+              Deployment Freedom with SST
+            </p>
+            <p
+              class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center"
+            >
+              Don't get locked into some wrapper mafia's subset of the cloud.
+            </p>
+            <p
+              class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center"
+            >
+              Deploy with confidence wherever it makes sense to you.
+            </p>
+          </div>
+          <div
+            class="flex flex-1 items-center justify-around [container-type:inline-size] max-lg:py-6 lg:pb-2"
+          >
+            <AWSLogo height="56" />
+            <CloudFlareLogo height="56" />
+            <NetlifyLogo height="24" />
+            <div class="relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d="M23 21.648H1L12 2.352z"></path>
+              </svg>
+              <p
+                class="text-[5px] text-nowrap text-center -translate-x-3.5 align-sub absolute"
+              >
+                (Don't use this one)
+              </p>
+            </div>
+            <HetznerLogo height="24" />
+          </div>
+        </div>
+        <div
+          class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5"
+        >
+        </div>
+      </div>
+      <div class="relative lg:row-span-2">
+        <div
+          class="absolute inset-px rounded-lg bg-base-100 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"
+        >
+        </div>
+        <div
+          class="relative bg-base-200 flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]"
+        >
+          <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+            <p
+              class="mt-2 text-lg font-medium tracking-tight text-base-content max-lg:text-center"
+            >
+              Single Page Power
+            </p>
+            <p
+              class="mt-2 max-w-lg text-sm/6 text-base-content/70 max-lg:text-center"
+            >
+              Building single page apps is easy to do right. TanStack Router and
+              TanStack Query do most of the heavy lifting leaving you free to
+              just build
+            </p>
+          </div>
+          <div class="relative overflow-clip min-h-[30rem] w-full grow">
+            <div
+              class="absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl bg-neutral shadow-2xl"
+            >
+              <div class="flex bg-neutral-focus/40 ring-1 ring-base-content/5">
+                <div
+                  class="-mb-px flex text-sm/6 font-medium text-neutral-content/70"
+                >
+                  <div
+                    class="border-b border-r border-b-base-content/20 border-r-base-content/10 bg-base-content/5 px-4 py-2 text-base-content"
+                  >
+                    settings.tsx
+                  </div>
+                  <div class="border-r border-neutral-content/10 px-4 py-2">
+                    sign-in.tsx
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex overflow-hidden items-stretch justify-stretch w-full h-full mt-px"
+              >
+                <Code
+                  class="w-full !bg-base-100 !overflow-hidden p-8"
+                  code={router_code}
+                  lang="js"
+                  theme="dracula-soft"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-base-content/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
+      </div>
+    </div>
+  </div>
+</div>

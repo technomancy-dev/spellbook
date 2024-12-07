@@ -1,0 +1,92 @@
+---
+import Pocketbase from "@/components/Pocketbase.astro";
+import AstroLogo from "@/components/AstroLogo.astro";
+import SSTLogo from "@/components/SSTLogo.astro";
+---
+
+<div class="hero items-start px-4 max-w-7xl mx-auto pt-28 bg-base-100">
+  <div class="hero-content items-start flex-wrap w-full justify-between">
+    <div class="text-center prose max-w-xl lg:text-left">
+      <h1
+        id="success"
+        class="xl:text-6xl pt-8 px-2 mb-0 leading-3 max-w-lg font-black"
+      >
+        Fall into the pit of <span class="text-7xl xl:text-9xl mb-0">success</span>
+      </h1>
+      <p class="py-6 mt-0 xl:text-2xl max-w-lg">
+        Spellbook is an Astro starter that makes doing the right things easy and
+        the wrong things hard.
+      </p>
+      <div class="flex flex-wrap justify-center gap-2">
+        <div>
+          <button class="btn btn-primary btn-wide">Get Started</button>
+          <p class="mt-1">
+            <span class="text-primary">Free forever</span> (14 left btw 😉)
+          </p>
+        </div>
+        <button class="btn btn-primary btn-ghost btn-wide">Docs</button>
+      </div>
+    </div>
+    <div
+      id="stack"
+      class="grow px-8 my-8 py-8 rotate-2 flex justify-center flex-col items-center prose prose-sm"
+    >
+      <!-- <div class="divider mb-0 mt-0"></div> -->
+      <div>
+        <p
+          id="simple"
+          class="xl:text-3xl text-base-100 pt-4 px-6 w-full mb-2 grow font-black"
+        >
+          Keep it simple, make it great.
+        </p>
+        <!-- <p class="my-0">When your tools are simple, building is easy.</p> -->
+      </div>
+      <div
+        class="grid grid-cols-2 pt-10 justify-between max-w-md mt-0 w-full gap-8"
+      >
+        <div class="text-md flex items-center gap-4 font-bold">
+          <AstroLogo height="40" width="40" /> Astro Base
+        </div>
+        <div class="text-md flex items-center gap-4 font-bold">
+          <Pocketbase height="40" width="40" /> PocketBase Backend
+        </div>
+        <div class="text-md flex items-center gap-4 font-bold">
+          <img src="/tanstack.png" height="40" width="40" /> TanStack CSR
+        </div>
+        <div class="text-md flex items-center gap-4 font-bold">
+          <SSTLogo height="40" width="40" /> SST Deployments
+        </div>
+      </div>
+      <!-- <div class="divider"></div> -->
+    </div>
+
+    <!-- <CallToAciton client:only="react" /> -->
+  </div>
+</div>
+
+
+<script>
+import { annotate } from "rough-notation";
+
+const success = document.querySelector<HTMLElement>("#success");
+const simple = document.querySelector<HTMLElement>("#simple");
+const stack = document.querySelector<HTMLElement>("#stack");
+
+const annotation = annotate(success, {
+  type: "bracket",
+  brackets: ["left", "right"],
+  color: "#BD93F9",
+});
+
+const annotation2 = annotate(simple, {
+  type: "highlight",
+});
+
+const annotation3 = annotate(stack, {
+  type: "circle",
+});
+
+annotation.show();
+annotation2.show();
+annotation3.show();
+</script>
