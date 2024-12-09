@@ -20,5 +20,6 @@ export const dual_navigate = (path: string) => {
     router.navigate({ to: path });
   } else {
     navigate(path);
+    window.history.pushState({}, '', path); // This is needed to trigger tanstack.
   }
 };
