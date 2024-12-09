@@ -2,7 +2,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen.ts";
-import { Loader, LoaderCircle, LoaderPinwheel } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -14,7 +14,11 @@ declare module "@tanstack/react-router" {
 // @ts-ignore
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => <div class="flex flex-1 h-full justify-center items-center animate-spin"><LoaderCircle size={52} /></div>,
+  defaultPendingComponent: () => (
+    <div class="flex flex-1 h-full justify-center items-center animate-spin">
+      <LoaderCircle size={52} />
+    </div>
+  ),
 });
 
 // Usually here we would render to the DOM, but since Astro will handle
