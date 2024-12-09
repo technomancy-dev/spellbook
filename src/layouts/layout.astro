@@ -1,0 +1,59 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer.astro";
+import NavigationActions from "@/components/navigation-actions";
+
+interface Props {
+  title: string;
+  showFooter?: boolean;
+}
+
+const { title, showFooter = true } = Astro.props;
+---
+
+<!doctype html>
+<html class="min-h-[100dvh] h-full" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body class="min-h-[100dvh] flex flex-col">
+    <Navigation>
+      <NavigationActions
+        transition:name="avatar"
+        transition:persist
+        client:only="react"
+      />
+    </Navigation>
+    <slot />
+    {showFooter && <Footer />}
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    @apply min-h-[100dvh];
+  }
+  body {
+    @apply flex flex-col;
+  }
+  main {
+    @apply flex-1 flex flex-col;
+  }
+</style>
+
+<script>
+  import { pb } from "@/pb-instance";
+  import { $user } from "@/stores/user";
+  import { subscribe_user_to_auth_store } from "@/stores/user";
+
+  $user.set(pb.authStore.model);
+  subscribe_user_to_auth_store();
+</script>
