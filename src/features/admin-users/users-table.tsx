@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { delete_user } from "@/services/user";
-import Avatar from "@/components/Avatar";
+import Avatar from "@/components/avatar";
 
 const UsersTable = ({ users }) => {
   return (

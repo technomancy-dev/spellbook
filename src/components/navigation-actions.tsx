@@ -3,7 +3,7 @@ import { $user } from "@/stores/user";
 import { sign_out } from "@/services/user";
 
 import { dual_navigate } from "@/helpers/navigation";
-import Avatar from "./Avatar";
+import Avatar from "@/components/avatar";
 
 const NavigationActions = () => {
   const user = useStore($user);
