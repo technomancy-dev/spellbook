@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { is_admin, users_query_options } from "@/services/user";
 import { redirect } from "@tanstack/react-router";
-import UsersPage from "@/features/admin-users/users-page";
+import UsersPage from "@/features/dashboard-pages-admin-users/users-page";
 import { query_client } from "@/stores/query";
 
 export const Route = createFileRoute("/dashboard/users/")({

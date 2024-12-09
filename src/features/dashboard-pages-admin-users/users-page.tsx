@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { users_query_options } from "@/services/user";
 import DashboardLayout from "@/layouts/dashboard/dashboard-layout";
-import UsersTable from "@/features/admin-users/users-table";
+import UsersTable from "@/features/dashboard-pages-admin-users/users-table";
 
 const UsersPage = () => {
   const { data: users } = useSuspenseQuery(users_query_options);

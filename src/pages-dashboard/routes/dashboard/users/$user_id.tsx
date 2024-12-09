@@ -1,12 +1,7 @@
-import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
-
-import DashboardLayout from "@/layouts/dashboard/dashboard-layout";
-import { Link } from "@tanstack/react-router";
-import { pb } from "@/pb-instance";
-import { useQuery } from "@tanstack/react-query";
 import { is_admin } from "@/services/user";
 import { redirect } from "@tanstack/react-router";
+import UserPage from "@/features/dashboard-pages-admin-users/user-page";
 
 export const Route = createFileRoute("/dashboard/users/$user_id")({
   component: RouteComponent,
@@ -21,26 +16,5 @@ export const Route = createFileRoute("/dashboard/users/$user_id")({
 
 function RouteComponent() {
   const { user_id } = Route.useParams();
-  const { data: user } = useQuery({
-    queryKey: ["user", user_id],
-    queryFn: () => pb.collection("users").getOne(user_id),
-  });
-
-  return (
-    <DashboardLayout>
-      <div class="px-6">
-        <div class="breadcrumbs text-sm">
-          <ul>
-            <li>
-              <Link to="/dashboard">Home</Link>
-            </li>
-            <li>
-              <Link to="/dashboard/users">Users</Link>
-            </li>
-            <li>{user?.username}</li>
-          </ul>
-        </div>
-      </div>
-    </DashboardLayout>
-  );
+  return <UserPage userId={user_id} />;
 }

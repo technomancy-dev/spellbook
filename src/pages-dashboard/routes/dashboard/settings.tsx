@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { is_authenticated } from "@/services/user";
-import SettingsPage from "@/features/settings/settings-page";
-
+import SettingsPage from "@/features/dashboard-page-settings/settings-page";
 
 export const Route = createFileRoute("/dashboard/settings")({
   component: SettingsPage,
