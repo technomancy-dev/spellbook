@@ -91,6 +91,7 @@ const SettingsForm = ({ user }) => {
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
+        // @ts-ignore
         setAvatarPreview(reader.result);
       };
       reader.readAsDataURL(file);

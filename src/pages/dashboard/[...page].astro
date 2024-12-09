@@ -1,11 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-
 import { Dashboard as ReactDashboard } from "@/dashboard/main.tsx";
 ---
 
-<Layout title="" showFooter={false}>
-  <main>
-    <ReactDashboard client:only="react" />
-  </main>
+<Layout title="Welcome to your dashboard" showFooter={false}>
+  <ReactDashboard client:only="react" />
 </Layout>

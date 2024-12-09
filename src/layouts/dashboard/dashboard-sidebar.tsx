@@ -52,10 +52,10 @@ const DashboardSideBar = () => {
             </Link>
           </li>
         </ul>
-        <div>
-          <p class="ml-4 font-bold">Admin Options</p>
-          <ul class="menu menu-lg lg:menu-md gap-2 w-80 bg-base-100 rounded-box">
-            {isAdmin && (
+        {isAdmin && (
+          <div>
+            <p class="ml-4 font-bold">Admin Options</p>
+            <ul class="menu menu-lg lg:menu-md gap-2 w-80 bg-base-100 rounded-box">
               <li>
                 <Link to="/dashboard/users">
                   <svg
@@ -76,9 +76,9 @@ const DashboardSideBar = () => {
                   <span class="badge badge-sm badge-warning">ADMIN</span>
                 </Link>
               </li>
-            )}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

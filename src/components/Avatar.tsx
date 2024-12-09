@@ -1,10 +1,8 @@
 import { pb } from "@/pb-instance";
 
 const Avatar = ({ user }) => {
-  console.log({user})
   const img = pb.files.getUrl(user, user.avatar);
 
-  console.log({img})
   if (!img)
     return (
       <div class="h-12 capitalize bg-base-200 flex justify-center items-center font-black">
