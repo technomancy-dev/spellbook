@@ -24,8 +24,8 @@ export default defineConfig({
     },
     plugins: [
       TanStackRouterVite({
-        routesDirectory: "./src/dashboard/routes",
-        generatedRouteTree: "./src/dashboard/routeTree.gen.ts",
+        routesDirectory: "./src/pages-dashboard/routes",
+        generatedRouteTree: "./src/pages-dashboard/routeTree.gen.ts",
         routeFileIgnorePrefix: "-",
         quoteStyle: "double",
       }),

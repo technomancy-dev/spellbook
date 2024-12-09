@@ -1,4 +1,4 @@
-import { router } from "@/dashboard/main";
+import { router } from "@/pages-dashboard/main";
 import { navigate } from "astro:transitions/client";
 
 /**
