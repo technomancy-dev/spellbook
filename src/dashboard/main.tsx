@@ -15,14 +15,6 @@ declare module "@tanstack/react-router" {
 export const router = createRouter({
   routeTree,
   defaultPendingComponent: () => <div class="flex flex-1 h-full justify-center items-center animate-spin"><LoaderCircle size={52} /></div>,
-  defaultNotFoundComponent: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Page Not Found</h1>
-        <p className="mt-2">This dashboard page doesn't exist</p>
-      </div>
-    </div>
-  ),
 });
 
 // Usually here we would render to the DOM, but since Astro will handle
