@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import DashboardLayout from "@/layouts/dashboard/dashboard-layout";
 import { Link } from "@tanstack/react-router";
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 import { useQuery } from "@tanstack/react-query";
 import { is_admin } from "@/services/user";
 import { redirect } from "@tanstack/react-router";

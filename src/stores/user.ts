@@ -1,6 +1,6 @@
 import { equals } from "ramda";
 import { atom } from "nanostores";
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 import { sign_out } from "@/services/user";
 import { query_client } from "@/stores/query";
 

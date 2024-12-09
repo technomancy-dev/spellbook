@@ -1,5 +1,5 @@
 import { isNil } from "ramda";
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 import { query_client } from "@/stores/query";
 import { $user, set_current_user } from "@/stores/user";
 import { ONE_SECOND } from "@/helpers/time";

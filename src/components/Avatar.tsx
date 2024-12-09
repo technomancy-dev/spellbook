@@ -1,4 +1,4 @@
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 
 const Avatar = ({ user }) => {
   console.log({user})

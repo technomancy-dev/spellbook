@@ -1,6 +1,6 @@
 import { github_login } from "@/services/user";
 import { Github } from "lucide-react";
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 import { useQuery } from "@tanstack/react-query";
 import { query_client } from "@/stores/query";
 

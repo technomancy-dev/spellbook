@@ -3,7 +3,7 @@ import { $user } from "@/stores/user";
 import { github_login } from "@/services/user";
 import { CircleX, Github } from "lucide-react";
 
-import pb from "@/pocketbase";
+import { pb } from "@/pb-instance";
 import { useStore } from "@nanostores/react";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
