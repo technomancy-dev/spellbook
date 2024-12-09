@@ -1,30 +1,36 @@
 import { useStore } from "@nanostores/react";
 import { $user } from "@/stores/user";
 import { sign_out } from "@/services/user";
-import pb from "@/pocketbase";
+
+import { dual_navigate } from "@/helpers/navigation";
+import Avatar from "./Avatar";
 
 const NavigationActions = () => {
   const user = useStore($user);
+
   return user ? (
     <div class="dropdown dropdown-end">
       <div tabIndex={0} role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src={pb.files.getUrl(user, user.avatar)}
-          />
+          <Avatar user={user} />
         </div>
       </div>
 
       <ul
         tabIndex={0}
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+        class="menu z-50 menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a href="/dashboard" class="justify-between">
-            Dashboard
-            <span class="badge">New</span>
-          </a>
+          <button
+            onClick={(e) => {
+              // @ts-ignore this has a blur event typescript omg.
+              e.target.blur();
+              dual_navigate("/dashboard");
+            }}
+            class="justify-between"
+          >
+            Dashboard <span class="badge">New</span>
+          </button>
         </li>
 
         <li>
