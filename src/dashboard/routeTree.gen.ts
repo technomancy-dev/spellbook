@@ -11,14 +11,22 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root"
+import { Route as SplatImport } from "./routes/$"
 import { Route as DashboardIndexImport } from "./routes/dashboard/index"
 import { Route as DashboardSignUpImport } from "./routes/dashboard/sign-up"
 import { Route as DashboardSignInImport } from "./routes/dashboard/sign-in"
 import { Route as DashboardSettingsImport } from "./routes/dashboard/settings"
+import { Route as DashboardSplatImport } from "./routes/dashboard/$"
 import { Route as DashboardUsersIndexImport } from "./routes/dashboard/users/index"
 import { Route as DashboardUsersUseridImport } from "./routes/dashboard/users/$user_id"
 
 // Create/Update Routes
+
+const SplatRoute = SplatImport.update({
+  id: "/$",
+  path: "/$",
+  getParentRoute: () => rootRoute,
+} as any)
 
 const DashboardIndexRoute = DashboardIndexImport.update({
   id: "/dashboard/",
@@ -44,6 +52,12 @@ const DashboardSettingsRoute = DashboardSettingsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardSplatRoute = DashboardSplatImport.update({
+  id: "/dashboard/$",
+  path: "/dashboard/$",
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DashboardUsersIndexRoute = DashboardUsersIndexImport.update({
   id: "/dashboard/users/",
   path: "/dashboard/users/",
@@ -60,6 +74,20 @@ const DashboardUsersUseridRoute = DashboardUsersUseridImport.update({
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
+    "/$": {
+      id: "/$"
+      path: "/$"
+      fullPath: "/$"
+      preLoaderRoute: typeof SplatImport
+      parentRoute: typeof rootRoute
+    }
+    "/dashboard/$": {
+      id: "/dashboard/$"
+      path: "/dashboard/$"
+      fullPath: "/dashboard/$"
+      preLoaderRoute: typeof DashboardSplatImport
+      parentRoute: typeof rootRoute
+    }
     "/dashboard/settings": {
       id: "/dashboard/settings"
       path: "/dashboard/settings"
@@ -108,6 +136,8 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  "/$": typeof SplatRoute
+  "/dashboard/$": typeof DashboardSplatRoute
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
@@ -117,6 +147,8 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  "/$": typeof SplatRoute
+  "/dashboard/$": typeof DashboardSplatRoute
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
@@ -127,6 +159,8 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  "/$": typeof SplatRoute
+  "/dashboard/$": typeof DashboardSplatRoute
   "/dashboard/settings": typeof DashboardSettingsRoute
   "/dashboard/sign-in": typeof DashboardSignInRoute
   "/dashboard/sign-up": typeof DashboardSignUpRoute
@@ -138,6 +172,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | "/$"
+    | "/dashboard/$"
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
@@ -146,6 +182,8 @@ export interface FileRouteTypes {
     | "/dashboard/users"
   fileRoutesByTo: FileRoutesByTo
   to:
+    | "/$"
+    | "/dashboard/$"
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
@@ -154,6 +192,8 @@ export interface FileRouteTypes {
     | "/dashboard/users"
   id:
     | "__root__"
+    | "/$"
+    | "/dashboard/$"
     | "/dashboard/settings"
     | "/dashboard/sign-in"
     | "/dashboard/sign-up"
@@ -164,6 +204,8 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  SplatRoute: typeof SplatRoute
+  DashboardSplatRoute: typeof DashboardSplatRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardSignInRoute: typeof DashboardSignInRoute
   DashboardSignUpRoute: typeof DashboardSignUpRoute
@@ -173,6 +215,8 @@ export interface RootRouteChildren {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  SplatRoute: SplatRoute,
+  DashboardSplatRoute: DashboardSplatRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardSignInRoute: DashboardSignInRoute,
   DashboardSignUpRoute: DashboardSignUpRoute,
@@ -191,6 +235,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/$",
+        "/dashboard/$",
         "/dashboard/settings",
         "/dashboard/sign-in",
         "/dashboard/sign-up",
@@ -198,6 +244,12 @@ export const routeTree = rootRoute
         "/dashboard/users/$user_id",
         "/dashboard/users/"
       ]
+    },
+    "/$": {
+      "filePath": "$.tsx"
+    },
+    "/dashboard/$": {
+      "filePath": "dashboard/$.tsx"
     },
     "/dashboard/settings": {
       "filePath": "dashboard/settings.tsx"
