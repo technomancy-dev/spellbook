@@ -48,17 +48,16 @@ export const is_authenticated = () => {
 
   // Don't await this, let it run in the background.
   // This lets pages feel instant, and will simply log them out if it fails later.
+  // This retries a few times because refreshing at the right time and other things can cancel it.
   // staleTime ONE_SECOND prevents this from running multiple times to pages
   // that have multiple authentication checks.
   query_client.fetchQuery({
     queryKey: ["user_refresh"],
     queryFn: () => {
-      return pb
-        .collection("users")
-        .authRefresh({ requestKey: null })
-        .catch(() => sign_out(() => window.location.assign("/")));
+      return pb.collection("users").authRefresh({ requestKey: null });
     },
     staleTime: ONE_SECOND,
+    retry: sign_out_after_retry_limit(3),
   });
 
   return pb.authStore.isValid;
@@ -71,4 +70,12 @@ export const is_admin = (user?) => {
   if (isNil(user)) user = $user.get();
 
   return user?.role === "manager";
+};
+
+const sign_out_after_retry_limit = (retry_limit) => (failure_count, error) => {
+  if (failure_count >= retry_limit) {
+    sign_out(() => window.location.assign("/"));
+    return false;
+  }
+  return true;
 };
