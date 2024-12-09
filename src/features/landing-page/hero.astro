@@ -11,7 +11,8 @@ import SSTLogo from "@/components/SSTLogo.astro";
         id="success"
         class="xl:text-6xl pt-8 px-2 mb-0 leading-3 max-w-lg font-black"
       >
-        Fall into the pit of <span class="text-7xl xl:text-9xl mb-0">success</span>
+        Fall into the pit of
+        <span class="text-7xl xl:text-9xl mb-0">success</span>
       </h1>
       <p class="py-6 mt-0 xl:text-2xl max-w-lg">
         Spellbook is an Astro starter that makes doing the right things easy and
@@ -31,7 +32,6 @@ import SSTLogo from "@/components/SSTLogo.astro";
       id="stack"
       class="grow px-8 my-8 py-8 rotate-2 flex justify-center flex-col items-center prose prose-sm"
     >
-      <!-- <div class="divider mb-0 mt-0"></div> -->
       <div>
         <p
           id="simple"
@@ -39,7 +39,6 @@ import SSTLogo from "@/components/SSTLogo.astro";
         >
           Keep it simple, make it great.
         </p>
-        <!-- <p class="my-0">When your tools are simple, building is easy.</p> -->
       </div>
       <div
         class="grid grid-cols-2 pt-10 justify-between max-w-md mt-0 w-full gap-8"
@@ -57,36 +56,49 @@ import SSTLogo from "@/components/SSTLogo.astro";
           <SSTLogo height="40" width="40" /> SST Deployments
         </div>
       </div>
-      <!-- <div class="divider"></div> -->
     </div>
-
-    <!-- <CallToAciton client:only="react" /> -->
   </div>
 </div>
 
-
 <script>
-import { annotate } from "rough-notation";
+  import { annotate } from "rough-notation";
 
-const success = document.querySelector<HTMLElement>("#success");
-const simple = document.querySelector<HTMLElement>("#simple");
-const stack = document.querySelector<HTMLElement>("#stack");
+  const elements = [
+    {
+      selector: "#success",
+      options: {
+        type: "bracket",
+        brackets: ["left", "right"],
+        color: "#BD93F9",
+      },
+    },
+    {
+      selector: "#simple",
+      options: {
+        type: "highlight",
+      },
+    },
+    {
+      selector: "#stack",
+      options: {
+        type: "circle",
+      },
+    },
+  ];
 
-const annotation = annotate(success, {
-  type: "bracket",
-  brackets: ["left", "right"],
-  color: "#BD93F9",
-});
+  // Astro view transitions conflict with how Rough Notation animations work, and they can't be played
+  // on navigation.
+  let isFirstLoad = true;
 
-const annotation2 = annotate(simple, {
-  type: "highlight",
-});
+  document.addEventListener("astro:page-load", () => {
+    elements.forEach(({ selector, options }) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        // @ts-ignore
+        annotate(element, { ...options, animate: isFirstLoad }).show();
+      }
+    });
 
-const annotation3 = annotate(stack, {
-  type: "circle",
-});
-
-annotation.show();
-annotation2.show();
-annotation3.show();
+    isFirstLoad = false;
+  });
 </script>
